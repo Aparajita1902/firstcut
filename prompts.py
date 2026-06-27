@@ -1105,12 +1105,12 @@ arrays/strings where a part genuinely has no content):
      "subtitle": "italic one-liner",
      "context_points": ["2-5 grounded points from supporting facts"],
      "opportunity_levers": ["3-4 levers — what the AI play actually does"],
-     "roi": {"low": "$X", "high": "$Y", "drivers": [{"name": "...", "value": "..."}]}}
+     "roi": {"low": "$X", "high": "$Y", "drivers": [{"name": "short lever label (<=22 chars)", "value": "baseline detail (not shown on strip)"}]}}
   ],
   "workforce_readiness": {
     "columns": ["very short label, <=2 words / <=14 chars (match deep_dive order)"],
     "heatmap": [["low|mod|high", ...], ...],
-    "recommendations": [{"role": "Data Engineer", "contribution": "one line",
+    "recommendations": [{"role": "FDC|FDE|Data Engineer|FDO (+ short specialisation)", "contribution": "one line",
                          "helps": ["opportunity short labels"]}],
     "method_note": "Inferred from public hiring signals, leadership scan, and tech-stack disclosures. Confirmed via Aistra Sprints."
   },
@@ -1133,7 +1133,14 @@ RULES:
 - `deep_dives`: ONE per core hypothesis, same order; context_points from that hypothesis's
   supporting facts; roi from its indicative_impact. `roi` is a quantified range with named
   drivers — never the string "qualitative"; if a play is genuinely unquantifiable, give a
-  directional range and raise a validation_flag instead.
+  directional range and raise a validation_flag instead. `roi.low` and `roi.high` are CLEAN
+  figures only — currency + number + unit (e.g. "₹1.6 Cr", "₹75 cr", "$4m"). Do NOT append
+  descriptors like "annual NIM" or "funding cost saved / yr" to the figure; the strip header
+  already says INDICATIVE IMPACT · ANNUAL, and a long figure renders small. Put any such
+  qualifier in the deep-dive subtitle. The deep-dive impact strip displays
+  ONLY each driver's `name`, so make every `name` a short lever label — at most 3 words / ~22
+  characters (e.g. "Cost-of-funds reduction", "Approval-rate lift"). Keep the quantification in
+  `value` (used in the audit trail, not shown on the strip).
 - `workforce_readiness`: include ONLY if the Talent Gap toggle is on. `columns` are the
   prioritised opportunities in deep_dive order, each as a VERY SHORT label — at most two words
   and ~14 characters, with no single word longer than 12 characters (abbreviate: "Encyclopaedia
@@ -1141,6 +1148,10 @@ RULES:
   narrow heatmap columns and must not wrap mid-word. The four delivery roles are
   fixed (FDC, FDE, Data Engineer, FDO) and supplied by the renderer — provide the heatmap
   rows in THAT role order. Cells are dependency intensity: low|mod|high. Up to 3 recommendations.
+  Each recommendation's `role` MUST be named in the Aistra delivery taxonomy — it begins with one
+  of FDC, FDE, Data Engineer, or FDO, optionally followed by a short specialisation in
+  parentheses (e.g. "FDE (Model Risk & Governance)", "Data Engineer (AA / GST / bureau)",
+  "FDC (AI/Data strategy)"). Do not invent external job titles like "Head of AI".
 - title_parts colour tags are exactly "ink" or "purple". Keep titles declarative and specific."""
 
 

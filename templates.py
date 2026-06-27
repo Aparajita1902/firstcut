@@ -570,7 +570,8 @@ def render_next_steps(prs: Presentation, content: dict, brand: dict, company_nam
 
 
 def render_deep_dive(prs: Presentation, content: dict, brand: dict, *,
-                     index: int | None = None, total: int | None = None) -> None:
+                     index: int | None = None, total: int | None = None,
+                     roi_fs: float | None = None) -> None:
     """Deep-dive slide in the house style — DEEP-DIVE pill, area + position top-right,
     bold-sans opportunity title, THE CONTEXT (numbered) and THE OPPORTUNITY (icon levers)
     columns, and a purple INDICATIVE IMPACT ribbon. House chrome (bars, bottom logo, page
@@ -621,7 +622,7 @@ def render_deep_dive(prs: Presentation, content: dict, brand: dict, *,
     body_top = y + 0.18
 
     # Geometry: two columns + bottom ribbon (ribbon nudged up to clear the bottom logo)
-    ribbon_top = 5.25; ribbon_h = 1.05; col_bottom = ribbon_top - 0.22
+    ribbon_top = 5.45; ribbon_h = 1.05; col_bottom = ribbon_top - 0.42
     left_w_in = 5.35; gap_in = 0.55
     right_x_in = margin_in + left_w_in + gap_in
     right_w_in = sw_in - margin_in - right_x_in
@@ -722,7 +723,7 @@ def render_deep_dive(prs: Presentation, content: dict, brand: dict, *,
                  "INDICATIVE IMPACT \u00b7 ANNUAL", font_name=body, font_size=9, bold=True, color_hex=lav)
     if _has_digit(low) or _has_digit(high):
         rng = _collapse_range(low, high)
-        num_fs = _fit_one_line_fs(rng, num_zone_w, 26, 16)
+        num_fs = roi_fs if roi_fs else _fit_one_line_fs(rng, num_zone_w, 26, 16)
         _add_textbox(slide, Inches(inL), Inches(ribbon_top + 0.44), Inches(num_zone_w), Inches(0.55),
                      rng, font_name=body, font_size=num_fs, bold=True, color_hex=white)
     else:
@@ -733,12 +734,11 @@ def render_deep_dive(prs: Presentation, content: dict, brand: dict, *,
     drivers = [d for d in (roi.get("drivers") or []) if (d.get("name") or d.get("value"))][:3]
     _add_textbox(slide, Inches(right_edge_in - chips_zone_w), Inches(ribbon_top + 0.22),
                  Inches(chips_zone_w), Inches(0.22),
-                 "IMPACT LEVERS \u00b7 BASELINE", font_name=body, font_size=9, bold=True, color_hex=lav,
+                 "IMPACT LEVERS", font_name=body, font_size=9, bold=True, color_hex=lav,
                  align=PP_ALIGN.RIGHT)
-    chip_texts = []
-    for d in drivers:
-        nm = (d.get("name") or "").strip(); vl = (d.get("value") or "").strip()
-        chip_texts.append(f"{nm} \u00b7 {vl}" if (nm and vl) else (nm or vl))
+    # Name the levers only — short labels, capped in the prompt so they fit without truncation.
+    chip_texts = [(d.get("name") or d.get("value") or "").strip() for d in drivers]
+    chip_texts = [t for t in chip_texts if t]
 
     # Shrink chip font (to a floor) until the row fits the right zone; then clamp text.
     chip_fs = 11
@@ -864,6 +864,21 @@ def _collapse_range(low: str, high: str) -> str:
 
 def _has_digit(s: str) -> bool:
     return any(ch.isdigit() for ch in (s or ""))
+
+
+def shared_roi_fs(deep_dives: list, num_zone_w: float = 3.5, start_fs: float = 26,
+                  floor_fs: float = 16) -> float:
+    """One ROI number font size for every deep-dive, so the figure is the same size on
+    every page. Sized to the LONGEST collapsed range across the deck so none overflows."""
+    longest = ""
+    for dd in deep_dives or []:
+        roi = (dd or {}).get("roi") or {}
+        low = str(roi.get("low") or "").strip(); high = str(roi.get("high") or "").strip()
+        if _has_digit(low) or _has_digit(high):
+            rng = _collapse_range(low, high)
+            if len(rng) > len(longest):
+                longest = rng
+    return _fit_one_line_fs(longest, num_zone_w, start_fs, floor_fs) if longest else start_fs
 
 
 def _fit_one_line_fs(text: str, width_in: float, start_fs: float, floor_fs: float,

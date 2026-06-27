@@ -441,8 +441,9 @@ def run_v2(storyline: dict, brand: dict, deck_path: str, progress=None) -> dict:
         T.render_opportunity_areas(prs, storyline["opportunity_areas"], brand)
 
     dds = storyline.get("deep_dives") or []
+    roi_fs = T.shared_roi_fs(dds)
     for i, dd in enumerate(dds, 1):
-        T.render_deep_dive(prs, dd, brand, index=i, total=len(dds))
+        T.render_deep_dive(prs, dd, brand, index=i, total=len(dds), roi_fs=roi_fs)
 
     if storyline.get("workforce_readiness"):
         T.render_delivery_capability(prs, storyline["workforce_readiness"], brand)
