@@ -1,0 +1,1579 @@
+{
+  "version": "2.0",
+  "last_updated": "2026-06-16",
+  "notes": "Built from Aistra's Revenue Intelligence, Operational Intelligence, and Financial Intelligence capability slides. Form-level pillars 'Customer Intelligence' and 'Financial Intelligence' map as follows: Customer Intelligence = Revenue Intelligence + Operational Intelligence (both customer-facing, different P&L angles). Financial Intelligence = pass-through. Fields 'short_description', 'typical_roi_metrics', and 'use_when' are inferred where the source slides did not specify; the Aistra team should review and refine these. | v2.0 expands Financial Intelligence into a full F&A taxonomy: Bucket 1 'Accounting & CFO Office' (O2C, P2P, R2R, FP&A, Tax, Treasury, Compliance/Risk/IA, ESG) and Bucket 2 'Transactions' (Reconciliations, Lending Ops, Insurance Ops, Customer-Facing Financial Ops).",
+  "form_pillars": {
+    "customer_intelligence": {
+      "name": "Customer Intelligence",
+      "anchored_to": [
+        "Customer P&L (Revenue Intelligence)",
+        "Operating P&L (Operational Intelligence)"
+      ],
+      "underlying_sub_pillars": [
+        "Revenue Intelligence",
+        "Operational Intelligence"
+      ]
+    },
+    "financial_intelligence": {
+      "name": "Financial Intelligence",
+      "anchored_to": [
+        "Finance function operating model",
+        "Transactions operations"
+      ],
+      "underlying_sub_pillars": [
+        "Accounting & CFO Office",
+        "Transactions"
+      ]
+    }
+  },
+  "opportunities": [
+    {
+      "id": "ci_rev_01",
+      "form_pillar": "customer_intelligence",
+      "sub_pillar": "Revenue Intelligence",
+      "theme": "Cash recovery",
+      "name": "Intelligent Collections",
+      "problem_statement": "Cash trapped in receivables, recovery rates stuck",
+      "short_description": "AI-orchestrated collections prioritisation, channel routing, and pre-write-off intervention to compress recovery cycles and lift net recovery rates.",
+      "typical_roi_metrics": [
+        "% improvement in net recovery rate",
+        "% reduction in days sales outstanding (DSO)",
+        "% reduction in bad debt write-offs"
+      ],
+      "use_when": "Company shows elevated DSO vs peers, has high B2C credit exposure (NBFC, telecom, utilities, BNPL), mentions receivables concerns in MD&A, or has visible bad-debt write-offs."
+    },
+    {
+      "id": "ci_rev_02",
+      "form_pillar": "customer_intelligence",
+      "sub_pillar": "Revenue Intelligence",
+      "theme": "Acquisition",
+      "name": "Intelligent Lead Generation",
+      "problem_statement": "Leads coming in, conversion leaking out",
+      "short_description": "AI-led lead scoring, intent prediction, and routing across marketing-to-sales handoff to reduce conversion leakage.",
+      "typical_roi_metrics": [
+        "Lead-to-MQL conversion rate uplift",
+        "MQL-to-SQL conversion rate uplift",
+        "Cost per qualified lead reduction"
+      ],
+      "use_when": "Company has high marketing spend, multiple lead sources, or visible mismatch between top-of-funnel volume and revenue growth."
+    },
+    {
+      "id": "ci_rev_03",
+      "form_pillar": "customer_intelligence",
+      "sub_pillar": "Revenue Intelligence",
+      "theme": "Conversion",
+      "name": "Service-to-Sales Conversion",
+      "problem_statement": "Service calls ending without the sale",
+      "short_description": "Real-time intent detection and offer orchestration within service interactions, converting service touchpoints into revenue moments.",
+      "typical_roi_metrics": [
+        "Service-to-sale conversion rate",
+        "Incremental revenue per service interaction",
+        "Cross-sell attach rate in service"
+      ],
+      "use_when": "Company has large inbound contact-centre operations, recurring customer touchpoints (telco, banking, insurance), or stated ambitions to monetise service channels."
+    },
+    {
+      "id": "ci_rev_04",
+      "form_pillar": "customer_intelligence",
+      "sub_pillar": "Revenue Intelligence",
+      "theme": "Retention",
+      "name": "Retention & Win-back",
+      "problem_statement": "Customers leaving before you see them go",
+      "short_description": "Early-warning churn signal detection and orchestrated retention/win-back interventions across digital, contact-centre, and field channels.",
+      "typical_roi_metrics": [
+        "Churn rate reduction (%)",
+        "Win-back conversion rate",
+        "Retained customer lifetime value"
+      ],
+      "use_when": "Subscription or recurring-revenue business, visible churn pressure in disclosures, telco/SaaS/insurance/streaming/banking models."
+    },
+    {
+      "id": "ci_rev_05",
+      "form_pillar": "customer_intelligence",
+      "sub_pillar": "Revenue Intelligence",
+      "theme": "Expansion",
+      "name": "Cross-sell & Upsell Intelligence",
+      "problem_statement": "Existing customers worth more than you're capturing",
+      "short_description": "Next-best-product recommendations and propensity-driven offer sequencing across digital and human channels to lift wallet share.",
+      "typical_roi_metrics": [
+        "Cross-sell conversion rate",
+        "Products per customer (PPC)",
+        "Revenue per existing customer (RPEC)"
+      ],
+      "use_when": "Multi-product portfolio, high existing-customer base, low cross-sell penetration vs peers (banking, insurance, telco, retail loyalty programmes)."
+    },
+    {
+      "id": "ci_rev_06",
+      "form_pillar": "customer_intelligence",
+      "sub_pillar": "Revenue Intelligence",
+      "theme": "Field sales",
+      "name": "Field-Team Revenue Intelligence",
+      "problem_statement": "Field teams running blind between visits",
+      "short_description": "AI-driven visit planning, account scoring, and next-best-action prompts for field sales and service reps.",
+      "typical_roi_metrics": [
+        "Revenue per field rep",
+        "Visits-to-sale conversion rate",
+        "Account coverage frequency"
+      ],
+      "use_when": "Distributed field-sales or merchandising force (FMCG, pharma, agri-inputs, building materials), beat-plan-driven operating model."
+    },
+    {
+      "id": "ci_rev_07",
+      "form_pillar": "customer_intelligence",
+      "sub_pillar": "Revenue Intelligence",
+      "theme": "B2B sales",
+      "name": "B2B Sales Buddy / Account Intelligence",
+      "problem_statement": "B2B sellers losing to faster-prepared competitors",
+      "short_description": "AI-assisted account briefs, opportunity scoring, and proposal generation for B2B sellers to reduce cycle time and improve win rate.",
+      "typical_roi_metrics": [
+        "Win rate (%)",
+        "Deal velocity (days to close)",
+        "Proposal turnaround time"
+      ],
+      "use_when": "Enterprise B2B sales motion, long sales cycles, complex solution selling (IT services, industrial, B2B SaaS, infrastructure)."
+    },
+    {
+      "id": "ci_rev_08",
+      "form_pillar": "customer_intelligence",
+      "sub_pillar": "Revenue Intelligence",
+      "theme": "Marketing",
+      "name": "Campaign Intelligence",
+      "problem_statement": "Marketing spend up, ROAS down, nobody sure why",
+      "short_description": "AI-driven attribution, channel-mix optimisation, and creative performance analytics across paid and owned channels.",
+      "typical_roi_metrics": [
+        "ROAS improvement (%)",
+        "Marketing-driven incremental revenue",
+        "Attribution accuracy"
+      ],
+      "use_when": "Significant marketing budget, multi-channel mix (digital + offline), visible ROAS pressure or attribution gaps in disclosures."
+    },
+    {
+      "id": "ci_rev_09",
+      "form_pillar": "customer_intelligence",
+      "sub_pillar": "Revenue Intelligence",
+      "theme": "Personalisation",
+      "name": "Customer Segmentation & Personalisation",
+      "problem_statement": "Outbound contact-centre on broadcast scripts",
+      "short_description": "Behavioural segmentation, propensity modelling, and personalised script/offer generation for outbound contact-centre and CRM operations.",
+      "typical_roi_metrics": [
+        "Outbound conversion lift",
+        "Response rate (%)",
+        "Segment-level revenue contribution"
+      ],
+      "use_when": "Outbound contact-centre operations, mass-market customer base, undifferentiated campaign output, identified personalisation gap."
+    },
+    {
+      "id": "ci_rev_10",
+      "form_pillar": "customer_intelligence",
+      "sub_pillar": "Revenue Intelligence",
+      "theme": "Marketing analytics",
+      "name": "Marketing Intelligence",
+      "problem_statement": "More dashboards, less strategic clarity",
+      "short_description": "Strategic marketing analytics across funnel, mix, attribution, and brand health — synthesised into decision-grade insights rather than data sprawl.",
+      "typical_roi_metrics": [
+        "Time-to-decision",
+        "Marketing-investment reallocation savings",
+        "Executive analytics adoption rate"
+      ],
+      "use_when": "Large marketing function, sprawl of analytics tools without consolidated decision layer, complaint of dashboard fatigue."
+    },
+    {
+      "id": "ci_ops_01",
+      "form_pillar": "customer_intelligence",
+      "sub_pillar": "Operational Intelligence",
+      "theme": "Service economics",
+      "name": "Intelligent Customer Service",
+      "problem_statement": "Service costs growing faster than volume",
+      "short_description": "AI-assisted agent workflows, intent prediction, and automation of repetitive case types to break the cost-per-contact curve.",
+      "typical_roi_metrics": [
+        "Cost-to-serve reduction (%)",
+        "Average handle time (AHT) reduction",
+        "First-contact resolution (FCR) improvement"
+      ],
+      "use_when": "Large contact-centre operations, rising service costs, customer base growing faster than the company can staff the support function economically."
+    },
+    {
+      "id": "ci_ops_02",
+      "form_pillar": "customer_intelligence",
+      "sub_pillar": "Operational Intelligence",
+      "theme": "Conversation intelligence",
+      "name": "Conversation Intelligence",
+      "problem_statement": "Every conversation a missed signal",
+      "short_description": "Speech and text analytics across customer interactions to extract churn signals, NPS drivers, complaint themes, and revenue triggers.",
+      "typical_roi_metrics": [
+        "Insight capture rate",
+        "Churn signal detection accuracy",
+        "Identified-issue resolution time"
+      ],
+      "use_when": "Significant voice or chat contact-centre operations, limited closed-loop signal capture from interactions, QA done by sampling only."
+    },
+    {
+      "id": "ci_ops_03",
+      "form_pillar": "customer_intelligence",
+      "sub_pillar": "Operational Intelligence",
+      "theme": "Workforce productivity",
+      "name": "Contact Centre Productivity / Agent Performance",
+      "problem_statement": "Floor running on tribal knowledge",
+      "short_description": "Real-time agent assist, performance analytics, and AI-driven coaching to compress ramp time and lift agent productivity.",
+      "typical_roi_metrics": [
+        "AHT reduction (%)",
+        "Agent ramp time to proficiency",
+        "Quality score improvement"
+      ],
+      "use_when": "High agent attrition, long ramp times, performance variance across agent cohorts, knowledge concentrated in a few tenured agents."
+    },
+    {
+      "id": "ci_ops_04",
+      "form_pillar": "customer_intelligence",
+      "sub_pillar": "Operational Intelligence",
+      "theme": "Proactive service",
+      "name": "Proactive / Preventive Service",
+      "problem_statement": "Service problems landing as inbound calls",
+      "short_description": "Anomaly detection and proactive outreach to address service issues before they become inbound contacts, shifting volume left.",
+      "typical_roi_metrics": [
+        "Inbound call volume reduction (%)",
+        "Customer issue prevention rate",
+        "NPS uplift"
+      ],
+      "use_when": "Subscription or recurring service businesses (telco, utilities, SaaS, banking), high inbound contact volume tied to known issue patterns."
+    },
+    {
+      "id": "ci_ops_05",
+      "form_pillar": "customer_intelligence",
+      "sub_pillar": "Operational Intelligence",
+      "theme": "Omni-channel CX",
+      "name": "AI-Augmented CX (Omni-channel)",
+      "problem_statement": "Customer journeys breaking at the channel handoff",
+      "short_description": "Unified context and AI-driven continuity across digital, voice, chat, and field channels to remove handoff friction in customer journeys.",
+      "typical_roi_metrics": [
+        "Channel handoff success rate",
+        "Journey completion rate",
+        "Omni-channel NPS"
+      ],
+      "use_when": "Multi-channel CX operations, repeated complaints about repeating information across channels, fragmented CRM/ticketing stack."
+    },
+    {
+      "id": "ci_ops_06",
+      "form_pillar": "customer_intelligence",
+      "sub_pillar": "Operational Intelligence",
+      "theme": "Workforce planning",
+      "name": "Workforce Intelligence for CX",
+      "problem_statement": "Workforce decisions made on lagging data",
+      "short_description": "AI-driven forecasting, scheduling, and intraday workforce decisions for CX operations using leading rather than lagging signals.",
+      "typical_roi_metrics": [
+        "Forecast accuracy improvement",
+        "Schedule adherence",
+        "Occupancy vs target"
+      ],
+      "use_when": "Large CX workforce, visible scheduling inefficiency, seasonality or volume volatility hard to predict with current tooling."
+    },
+    {
+      "id": "ci_ops_07",
+      "form_pillar": "customer_intelligence",
+      "sub_pillar": "Operational Intelligence",
+      "theme": "Knowledge management",
+      "name": "Knowledge Operations",
+      "problem_statement": "Frontline answers from yesterday's information",
+      "short_description": "AI-curated knowledge base with dynamic freshness, contextual retrieval, and embedded use within agent and self-service flows.",
+      "typical_roi_metrics": [
+        "Time-to-answer (frontline)",
+        "Self-service success rate",
+        "Knowledge content freshness rate"
+      ],
+      "use_when": "Frequent product/policy changes, stale knowledge base complaints, repeated frontline questions about same topics, low self-service deflection."
+    },
+    {
+      "id": "ci_ops_08",
+      "form_pillar": "customer_intelligence",
+      "sub_pillar": "Operational Intelligence",
+      "theme": "Service quality",
+      "name": "Complaint & Escalation Intelligence",
+      "problem_statement": "Complaints handled, root causes never closed",
+      "short_description": "Theme detection across complaints and escalations with closed-loop root-cause action and recurrence monitoring.",
+      "typical_roi_metrics": [
+        "Root-cause resolution rate (%)",
+        "Complaint recurrence rate reduction",
+        "Escalation prevention rate"
+      ],
+      "use_when": "Regulated industries with formal complaint processes (banking, insurance, telco, healthcare), or visible recurring complaint themes."
+    },
+    {
+      "id": "ci_ops_09",
+      "form_pillar": "customer_intelligence",
+      "sub_pillar": "Operational Intelligence",
+      "theme": "Self-service",
+      "name": "Self-Service & Digital Containment",
+      "problem_statement": "Customers calling for things they could solve themselves",
+      "short_description": "AI-driven self-service journeys, intent-aware bots, and proactive containment to deflect contacts that don't need a human.",
+      "typical_roi_metrics": [
+        "Containment rate (%)",
+        "Self-service success rate",
+        "Deflection rate"
+      ],
+      "use_when": "High inbound contact volume, large share of repetitive contact types, stated digital-first ambition, underperforming bot/IVR."
+    },
+    {
+      "id": "fi_acc_o2c_01",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Order to Cash",
+      "name": "Customer Master Data Management",
+      "problem_statement": "Duplicate customer records, inconsistent hierarchies, and stale credit attributes corrupt downstream billing, collections, and reporting.",
+      "short_description": "AI-orchestrated customer master governance: deduplication, hierarchy resolution, credit attribute enrichment, and continuous data-quality monitoring across ERPs and CRMs.",
+      "typical_roi_metrics": [
+        "% duplicate records resolved",
+        "Master-data exception hours saved",
+        "Days to onboard a new customer"
+      ],
+      "use_when": "Multiple billing entities or ERPs; M&A activity; recurring complaints about wrong invoicing parent; manual hierarchy maintenance."
+    },
+    {
+      "id": "fi_acc_o2c_02",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Order to Cash",
+      "name": "Credit Management & Scoring",
+      "problem_statement": "Credit limits set by gut feel; slow credit reviews; bad debt rising; sales blocked by credit holds at month-end.",
+      "short_description": "AI-driven credit scoring on internal payment behaviour plus external signals (bureau, news, peer payment); dynamic limit setting; pre-emptive credit hold release workflow.",
+      "typical_roi_metrics": [
+        "Bad debt as % of revenue reduction",
+        "Credit hold cycle time",
+        "% limit utilisation vs. ceiling"
+      ],
+      "use_when": "Rising bad debt; long credit-review cycles; high credit-hold incidence at period close; growing international portfolio."
+    },
+    {
+      "id": "fi_acc_o2c_03",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Order to Cash",
+      "name": "Sales Order Management",
+      "problem_statement": "Order errors, manual validation, and pricing exceptions slow fulfilment and feed downstream invoicing disputes.",
+      "short_description": "Intelligent order capture and validation: AI checks pricing, contract terms, credit, and inventory at order entry; routes exceptions to the right desk with full context.",
+      "typical_roi_metrics": [
+        "Order-to-fulfilment cycle time",
+        "% orders auto-validated (no human touch)",
+        "Downstream dispute volume reduction"
+      ],
+      "use_when": "High order volume across channels; frequent pricing exceptions; manual order validation desks; correlation between order errors and AR disputes."
+    },
+    {
+      "id": "fi_acc_o2c_04",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Order to Cash",
+      "name": "Contract & Pricing Compliance",
+      "problem_statement": "Special pricing approvals leak; rebate accruals are guesswork; revenue is left on the table or written off later in disputes.",
+      "short_description": "AI-monitored pricing-compliance layer over CRM/CPQ/ERP: detects off-list pricing, missing approvals, missed rebate triggers; automates accrual estimation.",
+      "typical_roi_metrics": [
+        "Margin leakage % reduction",
+        "Rebate-accrual variance vs. actual",
+        "% pricing exceptions with documented approval"
+      ],
+      "use_when": "Heavy use of special pricing; rebate programs >5% of revenue; pricing-discipline complaints from finance; frequent rebate true-up adjustments."
+    },
+    {
+      "id": "fi_acc_o2c_05",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Order to Cash",
+      "name": "Billing & Invoicing Intelligence",
+      "problem_statement": "Recurring, milestone, and usage billing run as parallel manual processes; errors and delays compound at scale.",
+      "short_description": "Unified billing engine with AI exception handling across recurring, milestone, usage, and pro-forma billing; auto-resolves contract-to-invoice mismatches.",
+      "typical_roi_metrics": [
+        "Days-to-bill cycle time",
+        "% invoice-first-time-right",
+        "Billing exception hours"
+      ],
+      "use_when": "Multiple billing engines / spreadsheets; long days-to-bill; mix of subscription, project, and usage-based revenue."
+    },
+    {
+      "id": "fi_acc_o2c_06",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Order to Cash",
+      "name": "E-Invoicing & Statutory Compliance",
+      "problem_statement": "Country e-invoice mandates (IRN/GST, Peppol, EU CTC) create patchwork integrations and chronic exception backlogs.",
+      "short_description": "AI-managed e-invoicing layer that handles country-specific mandates, IRN generation/cancellation, schema validation, and reconciliation against GST/VAT portals.",
+      "typical_roi_metrics": [
+        "E-invoice exception rate",
+        "GSTR-2A/2B mismatch %",
+        "Compliance penalty exposure reduction"
+      ],
+      "use_when": "Multi-country invoicing; new statutory mandates; high IRN/GST reconciliation overhead; recent compliance penalties."
+    },
+    {
+      "id": "fi_acc_o2c_07",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Order to Cash",
+      "name": "Receivables & DSO Intelligence",
+      "problem_statement": "AR ledger is a passive record; nobody sees which customers are slipping until DSO is already up by 5 days.",
+      "short_description": "Continuous AI monitoring of AR aging, customer payment behaviour, and external signals; cohort DSO tracking with predictive deterioration alerts.",
+      "typical_roi_metrics": [
+        "DSO reduction (days)",
+        "Working capital released ($)",
+        "Days-to-detect deterioration"
+      ],
+      "use_when": "DSO above industry benchmark; spike-and-correct pattern in working capital; manual AR aging review monthly."
+    },
+    {
+      "id": "fi_acc_o2c_08",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Order to Cash",
+      "name": "Cash Application & Auto-Match",
+      "problem_statement": "Remittance advice arrives in 12 formats; cash sits on-account; finance manually parses to clear.",
+      "short_description": "ML-powered cash application: parses remittance advice (PDF, email, EDI, bank file), auto-matches against open AR with confidence scoring, learns from corrections.",
+      "typical_roi_metrics": [
+        "% auto-match rate",
+        "On-account AR balance reduction",
+        "Cash-app FTE hours saved"
+      ],
+      "use_when": "Cash-app team >3 FTE; <70% auto-match rate; large on-account AR balance; multi-currency or multi-bank receipts."
+    },
+    {
+      "id": "fi_acc_o2c_09",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Order to Cash",
+      "name": "Intelligent Collections",
+      "problem_statement": "Collectors work down a static list; the right next action (call, email, restructure) is judgment-based and inconsistent.",
+      "short_description": "AI-prioritised collections worklist with next-best-action recommendations per account, channel routing, promise-to-pay tracking, and pre-write-off intervention.",
+      "typical_roi_metrics": [
+        "Net recovery rate %",
+        "Collector productivity ($ recovered per hour)",
+        "Promise-to-pay kept rate"
+      ],
+      "use_when": "Collections team operating on aging buckets only; high write-off rate; no closed-loop measurement of intervention effectiveness."
+    },
+    {
+      "id": "fi_acc_o2c_10",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Order to Cash",
+      "name": "Disputes & Deductions Management",
+      "problem_statement": "Short-pays pile up; root-cause investigation is manual; deduction patterns aren't fed back to prevent recurrence.",
+      "short_description": "AI-driven dispute triage: classifies short-pays by root cause (pricing, freight, damage, promo), routes to the right resolver, and feeds patterns back to commercial.",
+      "typical_roi_metrics": [
+        "Dispute resolution cycle time",
+        "% deductions recovered vs. written off",
+        "Recurring-root-cause % reduction"
+      ],
+      "use_when": "Deductions >2% of revenue; resolution cycles >30 days; no systematic root-cause analytics on disputes."
+    },
+    {
+      "id": "fi_acc_o2c_11",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Order to Cash",
+      "name": "Revenue Recognition Automation",
+      "problem_statement": "ASC 606 / Ind AS 115 logic lives in spreadsheets and SOPs; performance-obligation allocation is manual and audit-fragile.",
+      "short_description": "AI-supported revenue recognition: parses contracts, identifies performance obligations, allocates SSP, and posts deferred revenue with full audit trail.",
+      "typical_roi_metrics": [
+        "RevRec close-time reduction",
+        "Audit-finding reduction on revenue",
+        "% contracts processed straight-through"
+      ],
+      "use_when": "Complex revenue models (subscription, milestone, usage); manual contract-to-revenue mapping; recent revenue restatements or audit findings."
+    },
+    {
+      "id": "fi_acc_o2c_12",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Order to Cash",
+      "name": "Deferred Revenue & Contract Asset/Liability Tracking",
+      "problem_statement": "Deferred revenue waterfall, contract assets, and contract liabilities are tracked in Excel — error-prone and slow.",
+      "short_description": "Automated tracking of deferred revenue, contract assets, and liabilities by contract; AI flags drift vs. expected waterfall.",
+      "typical_roi_metrics": [
+        "Waterfall variance reduction",
+        "Time to produce deferred revenue roll-forward",
+        "Audit testing hours saved"
+      ],
+      "use_when": "Subscription/multi-element contracts; manual deferred-revenue spreadsheets; auditor focus on revenue cutoff."
+    },
+    {
+      "id": "fi_acc_o2c_13",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Order to Cash",
+      "name": "Rebates, Royalties & Customer Incentives",
+      "problem_statement": "Rebate accrual estimates drift; customer incentive programs aren't measured against actual outcomes.",
+      "short_description": "AI-driven rebate accrual and settlement engine: tracks program eligibility, computes accruals, predicts customer attainment, settles automatically.",
+      "typical_roi_metrics": [
+        "Rebate accrual variance vs. actual",
+        "Settlement cycle time",
+        "Program ROI measurement (incentive vs. lift)"
+      ],
+      "use_when": "Rebate/incentive programs >5% of revenue; large true-up adjustments at year-end; ad-hoc program design without measured ROI."
+    },
+    {
+      "id": "fi_acc_o2c_14",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Order to Cash",
+      "name": "Bad Debt Provisioning & Write-Offs",
+      "problem_statement": "Bad debt provisions are formula-based and lag actual deterioration; write-offs surprise the P&L.",
+      "short_description": "AI-driven expected-credit-loss modelling on customer-level payment behaviour and external signals; dynamic provisioning with management override.",
+      "typical_roi_metrics": [
+        "Provision-to-actual write-off variance",
+        "Days-to-detect deterioration",
+        "Audit comfort on ECL assumptions"
+      ],
+      "use_when": "Material ECL provisions; auditor questions on provision methodology; ECL surprises in recent periods."
+    },
+    {
+      "id": "fi_acc_p2p_01",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Procure to Pay",
+      "name": "Vendor Master & Onboarding",
+      "problem_statement": "Vendor onboarding takes weeks; KYC, sanctions, and beneficial-ownership checks are manual and inconsistent.",
+      "short_description": "AI-orchestrated vendor onboarding: extracts data from supplier-provided docs, runs sanctions/PEP/beneficial-ownership screening, scores vendor risk, deduplicates against master.",
+      "typical_roi_metrics": [
+        "Vendor onboarding cycle time",
+        "Duplicate vendor % reduction",
+        "Sanctions/KYC exception coverage"
+      ],
+      "use_when": "Onboarding cycles >7 days; multiple vendor masters; compliance exposure on sanctions/beneficial ownership; M&A consolidating vendor lists."
+    },
+    {
+      "id": "fi_acc_p2p_02",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Procure to Pay",
+      "name": "Sourcing & RFx Intelligence",
+      "problem_statement": "Sourcing events use the same vendor lists every time; market intelligence on price benchmarks is manual.",
+      "short_description": "AI-augmented sourcing: vendor discovery from external sources, automated RFx scoring against weighted criteria, market price benchmarks.",
+      "typical_roi_metrics": [
+        "Sourcing cycle time",
+        "Negotiated savings vs. baseline",
+        "Supplier-pool expansion"
+      ],
+      "use_when": "Concentrated supplier base; little market benchmarking; long sourcing cycles; recent supplier disruption events."
+    },
+    {
+      "id": "fi_acc_p2p_03",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Procure to Pay",
+      "name": "Contract Lifecycle Management",
+      "problem_statement": "Contracts sit in shared drives; obligations and renewals slip; commercial leverage is lost.",
+      "short_description": "AI-driven CLM with obligation extraction, renewal-and-pricing alerts, and auto-population of standard clauses; integrates with sourcing and P2P.",
+      "typical_roi_metrics": [
+        "% renewals captured before expiry",
+        "Obligation-breach incidents",
+        "Average contract negotiation cycle"
+      ],
+      "use_when": "Contract base >500 active; renewals managed via spreadsheet; recent missed-renewal incidents; obligation tracking informal."
+    },
+    {
+      "id": "fi_acc_p2p_04",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Procure to Pay",
+      "name": "Requisition & Purchase Order Workflow",
+      "problem_statement": "PR-to-PO cycle is slow; approval routings are manual; non-PO spend leaks; off-contract purchases bypass commercial.",
+      "short_description": "Intelligent PR/PO workflow: AI suggests catalogue items, routes approvals by amount-and-risk, flags off-contract purchases, predicts likely PO exceptions.",
+      "typical_roi_metrics": [
+        "PR-to-PO cycle time",
+        "% PO compliance (on-contract spend)",
+        "Approval-touch hours saved"
+      ],
+      "use_when": "Manual approval routing; high non-PO spend; off-contract purchases >10% of indirect spend; commercial-team complaints about leakage."
+    },
+    {
+      "id": "fi_acc_p2p_05",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Procure to Pay",
+      "name": "Goods Receipt & 3-Way Match",
+      "problem_statement": "GR-IR mismatches accumulate; matching exceptions block payments; warehouse and finance argue about quantities.",
+      "short_description": "AI-driven match engine: 3-way / 4-way match with smart tolerance application, GR-IR reconciliation, exception routing with full context.",
+      "typical_roi_metrics": [
+        "% straight-through-match rate",
+        "GR-IR balance reduction",
+        "Match-exception resolution cycle time"
+      ],
+      "use_when": "Material GR-IR balance; manual matching team; tolerances applied inconsistently; high invoice-block rate at period end."
+    },
+    {
+      "id": "fi_acc_p2p_06",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Procure to Pay",
+      "name": "Invoice Capture & Ingestion",
+      "problem_statement": "Invoices arrive across portals, emails, EDI, and paper; data extraction is manual; exceptions snowball.",
+      "short_description": "AI-powered invoice ingestion: OCR with contextual extraction, e-invoice schema validation, EDI ingestion; learns from corrections; classifies by spend category.",
+      "typical_roi_metrics": [
+        "% straight-through invoice processing",
+        "Invoice handling cost per doc",
+        "Invoice-to-post cycle time"
+      ],
+      "use_when": "AP team >5 FTE; <70% straight-through processing; multi-channel invoice intake; complaints about slow invoice posting."
+    },
+    {
+      "id": "fi_acc_p2p_07",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Procure to Pay",
+      "name": "Invoice Exception Handling",
+      "problem_statement": "Price, quantity, and tax variances send invoices back to manual queues; resolution is unstructured.",
+      "short_description": "AI exception-resolution layer: classifies variance type, suggests resolution, auto-resolves within learned tolerances, routes the rest with structured context.",
+      "typical_roi_metrics": [
+        "Exception-resolution cycle time",
+        "% exceptions auto-resolved",
+        "Repeat-exception % reduction"
+      ],
+      "use_when": "High invoice-exception volume; large AP exception queue; recurring price/qty variances on same vendors."
+    },
+    {
+      "id": "fi_acc_p2p_08",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Procure to Pay",
+      "name": "Tax Determination on AP",
+      "problem_statement": "GST input credit, VAT, and withholding determination is rule-coded into ERP and outdated as soon as a tax notification lands.",
+      "short_description": "AI-maintained tax-determination engine: keeps rate and rule tables current, applies input-credit rules, withholds correctly, flags edge cases.",
+      "typical_roi_metrics": [
+        "Tax determination accuracy %",
+        "Input-credit recovery % uplift",
+        "Tax penalty/interest avoided"
+      ],
+      "use_when": "Multi-jurisdiction tax exposure; manual tax-table maintenance; recent input-credit denials; large WHT/TDS portfolio."
+    },
+    {
+      "id": "fi_acc_p2p_09",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Procure to Pay",
+      "name": "Payment Runs & Cash Optimisation",
+      "problem_statement": "Payment runs are scheduled by calendar, not by working-capital optimisation; payment-instrument choice is rule-based and stale.",
+      "short_description": "AI-driven payment scheduling: optimises run timing for working capital, selects payment instrument (ACH/wire/p-card/virtual) by cost-to-pay, manages cross-border FX cost.",
+      "typical_roi_metrics": [
+        "DPO improvement (days)",
+        "Payment processing cost per txn",
+        "% payments on optimal instrument"
+      ],
+      "use_when": "Multiple bank relationships; cross-border payments; >10K payments/month; rule-based instrument selection."
+    },
+    {
+      "id": "fi_acc_p2p_10",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Procure to Pay",
+      "name": "T&E and Corporate Card Management",
+      "problem_statement": "Expense reports are submitted late, policy is enforced after-the-fact, audit sampling catches only obvious offenders.",
+      "short_description": "AI-driven T&E platform: receipt OCR, policy enforcement at submission, AI fraud/anomaly detection, audit-sampling-as-continuous-monitoring.",
+      "typical_roi_metrics": [
+        "% expense reports policy-compliant",
+        "Out-of-policy spend reduction",
+        "T&E audit cycle time"
+      ],
+      "use_when": "Spend on T&E >1% of revenue; manual expense report review; recurring policy breaches; recent T&E fraud incidents."
+    },
+    {
+      "id": "fi_acc_p2p_11",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Procure to Pay",
+      "name": "P-Card & Virtual Card Programs",
+      "problem_statement": "P-card program is underused; rebate revenue is left on the table; virtual cards aren't deployed to the right spend categories.",
+      "short_description": "AI program-management for cards: identifies spend categories suitable for card migration, predicts rebate uplift, monitors compliance and concentration risk.",
+      "typical_roi_metrics": [
+        "P-card / vCard spend share",
+        "Card rebate revenue uplift",
+        "Migration cycle time"
+      ],
+      "use_when": "Mature corporate-card relationship; under-deployed virtual card program; rebate revenue <industry benchmark."
+    },
+    {
+      "id": "fi_acc_p2p_12",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Procure to Pay",
+      "name": "Supplier Reconciliation",
+      "problem_statement": "Supplier statements arrive monthly; manual reconciliation against AP ledger is days of work; mismatches linger.",
+      "short_description": "Automated supplier-statement ingestion and reconciliation against AP ledger; AI flags root cause of differences; closes loop with supplier on disputes.",
+      "typical_roi_metrics": [
+        "Reconciliation cycle time",
+        "% supplier statements auto-cleared",
+        "Open supplier disputes ($)"
+      ],
+      "use_when": "Large supplier base; manual statement reconciliation; recurring supplier-relationship escalations over balances."
+    },
+    {
+      "id": "fi_acc_p2p_13",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Procure to Pay",
+      "name": "1099 / TDS / Withholding Reporting",
+      "problem_statement": "Year-end withholding reporting is a fire drill; certificate management is manual; reconciliation against tax authority data is painful.",
+      "short_description": "AI-managed withholding compliance: continuous tracking of TDS/1099 thresholds, certificate management, reconciliation against tax authority portals, year-end automation.",
+      "typical_roi_metrics": [
+        "Year-end close-out cycle time",
+        "Certificate mismatch reduction",
+        "Penalty/interest avoided"
+      ],
+      "use_when": "Large 1099/TDS portfolio; year-end reporting cited as a pain point; recent TDS notices or reconciliation gaps."
+    },
+    {
+      "id": "fi_acc_p2p_14",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Procure to Pay",
+      "name": "Spend Analytics",
+      "problem_statement": "Spend reporting is a quarterly slide deck; category, supplier, and maverick-spend insight is lost in the middle.",
+      "short_description": "AI-classified continuous spend analytics: category trees, supplier concentration, maverick-spend detection, savings-tracking against approved initiatives.",
+      "typical_roi_metrics": [
+        "Maverick spend % reduction",
+        "Savings realised vs. plan",
+        "Time-to-insight on spend questions"
+      ],
+      "use_when": "No live spend cube; category trees inconsistent; no savings tracking against sourcing initiatives."
+    },
+    {
+      "id": "fi_acc_r2r_01",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Record to Report",
+      "name": "Chart of Accounts Governance",
+      "problem_statement": "Chart of accounts has grown organically; ledger postings hit the wrong account; reporting drift is constant.",
+      "short_description": "AI-monitored CoA governance: detects miscoding patterns, suggests consolidation, predicts impact of CoA changes before they're made.",
+      "typical_roi_metrics": [
+        "Account-mapping exception rate",
+        "Reporting-drift incidents",
+        "CoA-rationalisation savings"
+      ],
+      "use_when": "CoA >500 accounts; ledger-mapping complaints; recent reporting drift between sub-ledger and GL."
+    },
+    {
+      "id": "fi_acc_r2r_02",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Record to Report",
+      "name": "Journal Entry Workflow",
+      "problem_statement": "Manual journals are a black box; approval workflow is inconsistent; risky entries don't get the scrutiny they deserve.",
+      "short_description": "AI-routed JE workflow: scores each manual journal for risk (size, account, period, preparer), routes high-risk to senior review, auto-approves low-risk recurring journals.",
+      "typical_roi_metrics": [
+        "% JEs auto-approved",
+        "JE preparation hours saved",
+        "High-risk JE detection rate"
+      ],
+      "use_when": "Manual JE volume >500/month; recurring JE backlog; auditor focus on manual journals; close-cycle JE bottleneck."
+    },
+    {
+      "id": "fi_acc_r2r_03",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Record to Report",
+      "name": "Sub-Ledger to GL Reconciliation",
+      "problem_statement": "Sub-ledger to GL differences appear at close; reconciliation is manual and the root cause investigation eats into close days.",
+      "short_description": "Continuous sub-ledger to GL reconciliation: AI matches at transaction level, classifies differences by cause, automates the recurring ones, flags real exceptions.",
+      "typical_roi_metrics": [
+        "Close days lost to recon (reduction)",
+        "Recurring-recon-difference reduction",
+        "% reconciliations automated"
+      ],
+      "use_when": "Multi-system landscape (separate AR/AP/inventory sub-ledgers); recurring close-day delays attributed to recon; manual rec spreadsheets."
+    },
+    {
+      "id": "fi_acc_r2r_04",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Record to Report",
+      "name": "Intercompany Transactions",
+      "problem_statement": "Intercompany flows mismatch between entities; netting is monthly and clunky; FX timing differences create reconciliation noise.",
+      "short_description": "Intercompany matching engine: real-time match, AI-driven discrepancy resolution, automated netting, multi-currency settlement orchestration.",
+      "typical_roi_metrics": [
+        "IC out-of-balance amount reduction",
+        "Settlement cycle time",
+        "Close days lost to IC (reduction)"
+      ],
+      "use_when": "Multi-entity group; cross-border IC flows; recurring IC out-of-balance issues; large IC volume."
+    },
+    {
+      "id": "fi_acc_r2r_05",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Record to Report",
+      "name": "Fixed Asset Accounting",
+      "problem_statement": "Capitalisation decisions are manual; depreciation schedules drift; impairment indicators aren't proactively surfaced.",
+      "short_description": "AI-driven fixed asset accounting: capex classification, depreciation schedule maintenance, impairment-indicator monitoring, disposal automation.",
+      "typical_roi_metrics": [
+        "Asset register accuracy %",
+        "Impairment-detection lead time",
+        "FA close hours saved"
+      ],
+      "use_when": "Large FA register; recent impairment surprises; manual CWIP-to-asset transitions; asset tagging incomplete."
+    },
+    {
+      "id": "fi_acc_r2r_06",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Record to Report",
+      "name": "Inventory Accounting",
+      "problem_statement": "Inventory valuation, NRV testing, and cycle-count adjustments are manual; COGS surprises emerge late.",
+      "short_description": "AI-driven inventory accounting: NRV testing automation, cycle-count exception triage, COGS reconciliation, slow-moving provisioning.",
+      "typical_roi_metrics": [
+        "NRV write-down surprise reduction",
+        "COGS recon cycle time",
+        "Cycle-count adjustment hours saved"
+      ],
+      "use_when": "Inventory >10% of total assets; recurring COGS variances; manual NRV process; slow-moving provisions are formula-based."
+    },
+    {
+      "id": "fi_acc_r2r_07",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Record to Report",
+      "name": "Lease Accounting",
+      "problem_statement": "ASC 842 / Ind AS 116 schedules live in dedicated tools that don't talk to the GL; modifications cause cascade work.",
+      "short_description": "AI-managed lease accounting layer: contract ingestion, schedule generation, modification handling, GL postings, disclosure automation.",
+      "typical_roi_metrics": [
+        "Lease-mod cycle time",
+        "Disclosure-prep hours saved",
+        "Schedule-vs-actual variance"
+      ],
+      "use_when": "Active lease portfolio (real estate or equipment); recent lease-mod activity; manual schedule maintenance; disclosure complaints."
+    },
+    {
+      "id": "fi_acc_r2r_08",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Record to Report",
+      "name": "Accruals, Provisions & Prepayments",
+      "problem_statement": "Period-end accruals are estimated, prepayments are released by formula, and quality varies by preparer.",
+      "short_description": "AI-driven accrual estimation from invoice and PO data; automated prepayment release; provision adequacy monitoring against actual.",
+      "typical_roi_metrics": [
+        "Accrual estimation accuracy",
+        "Period-end accrual hours saved",
+        "Provision-to-actual variance"
+      ],
+      "use_when": "Material accrual estimates at period end; manual prepayment registers; auditor scrutiny on estimate quality."
+    },
+    {
+      "id": "fi_acc_r2r_09",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Record to Report",
+      "name": "Period Close Orchestration",
+      "problem_statement": "Close calendar lives in a spreadsheet; task dependencies are tribal knowledge; bottlenecks are diagnosed post-mortem.",
+      "short_description": "AI-orchestrated close: real-time task tracking with dependency awareness, bottleneck prediction, certification workflow, post-close analytics.",
+      "typical_roi_metrics": [
+        "Close cycle time (days)",
+        "Late-task incidents",
+        "Certification audit-trail completeness"
+      ],
+      "use_when": "Close cycle >5 working days; informal close coordination; recurring late-task patterns; auditor focus on close discipline."
+    },
+    {
+      "id": "fi_acc_r2r_10",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Record to Report",
+      "name": "Balance Sheet Reconciliations",
+      "problem_statement": "BS recs are done in Excel by individuals; quality varies; auditors find unsupported reconciling items every year.",
+      "short_description": "AI-driven BS reconciliation platform: standardised templates, auto-population from source systems, anomaly flagging, certifier workflow with audit trail.",
+      "typical_roi_metrics": [
+        "% accounts auto-reconciled",
+        "Unsupported reconciling items reduction",
+        "BS-rec preparer hours saved"
+      ],
+      "use_when": "BS recs in Excel; recurring audit findings on rec quality; large BS-rec population to certify at month-end."
+    },
+    {
+      "id": "fi_acc_r2r_11",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Record to Report",
+      "name": "Bank Reconciliation",
+      "problem_statement": "Bank reconciliations lag the close; manual matching of transactions is slow; unidentified items linger.",
+      "short_description": "Continuous AI-driven bank reconciliation: matches against AR/AP/journals at transaction level, classifies unmatched items, auto-clears the recurring ones.",
+      "typical_roi_metrics": [
+        "% transactions auto-matched",
+        "Unidentified-items aging reduction",
+        "Bank-rec preparer hours saved"
+      ],
+      "use_when": "Multi-bank/multi-currency receipts; manual bank-rec spreadsheets; recurring late-clearing items; treasury-finance friction."
+    },
+    {
+      "id": "fi_acc_r2r_12",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Record to Report",
+      "name": "Consolidation & FX Translation",
+      "problem_statement": "Multi-entity consolidation runs in dedicated tools that need manual feeds; CTA, minority interest, and elims are checked by hand.",
+      "short_description": "AI-orchestrated consolidation: data validation across feeds, CTA computation, automated elimination entries, minority-interest tracking, comparison vs. prior cycle.",
+      "typical_roi_metrics": [
+        "Consolidation cycle time",
+        "Elim-error detection rate",
+        "CTA reconciliation hours saved"
+      ],
+      "use_when": "Multi-entity, multi-currency group; manual consolidation tool feeds; recurring elim or CTA reconciliation noise; group close-cycle pressure."
+    },
+    {
+      "id": "fi_acc_r2r_13",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Record to Report",
+      "name": "Statutory Financials & Disclosures",
+      "problem_statement": "Statutory financials prep is annual project work; disclosure language is copy-paste with manual checks.",
+      "short_description": "AI-assisted statutory financials and disclosures: data flows from consolidation, disclosure language compared to prior year with auto-flagged change deltas.",
+      "typical_roi_metrics": [
+        "Statutory prep cycle time",
+        "Disclosure-language consistency",
+        "Audit query-cycle reduction"
+      ],
+      "use_when": "Multi-jurisdiction statutory financials; annual prep cycle pain; recurring audit queries on disclosure consistency."
+    },
+    {
+      "id": "fi_acc_r2r_14",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Record to Report",
+      "name": "Management Reporting & MIS",
+      "problem_statement": "MIS packs are built each month by hand from multiple sources; insight gets lost in production effort.",
+      "short_description": "AI-generated MIS: flash, P&L, BS, CF, KPI packs assembled from ledger and operational data; commentary drafted from variance signals.",
+      "typical_roi_metrics": [
+        "MIS production hours saved",
+        "Time-to-distribute post-close",
+        "Commentary-prep hours saved"
+      ],
+      "use_when": "Manual MIS in Excel/PowerPoint; complaints about late or stale MIS; CFO time spent on production rather than interpretation."
+    },
+    {
+      "id": "fi_acc_r2r_15",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Record to Report",
+      "name": "Variance Analysis",
+      "problem_statement": "Variance analysis is a column in the MIS pack; root-cause investigation happens in side conversations and rarely makes it back to the books.",
+      "short_description": "AI-driven variance attribution: decomposes actuals vs. budget vs. forecast vs. prior by driver; surfaces likely causes from operational data; closes the loop on recurring variances.",
+      "typical_roi_metrics": [
+        "Variance-explanation cycle time",
+        "% variances with named root cause",
+        "Recurring-variance % reduction"
+      ],
+      "use_when": "Large variances in recent periods; CFO-COO friction over variance ownership; variance commentary is vague."
+    },
+    {
+      "id": "fi_acc_r2r_16",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Record to Report",
+      "name": "Audit Support & Internal Controls",
+      "problem_statement": "Audit prep is a 6-week scramble; PBC lists, sampling, walkthroughs, and evidence collection are manual and stressful.",
+      "short_description": "AI-assisted audit readiness: continuous evidence collection, sample selection, walkthrough documentation, control-test automation, SOX/ICFR test execution.",
+      "typical_roi_metrics": [
+        "Audit-prep cycle time reduction",
+        "Control-test exceptions reduction",
+        "Auditor information-request lead time"
+      ],
+      "use_when": "Annual audit pain; SOX/ICFR scope material; control deficiencies in recent years; auditor complaints about evidence timeliness."
+    },
+    {
+      "id": "fi_acc_fpa_01",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "FP&A",
+      "name": "Annual Operating Plan & Bottom-Up Budgeting",
+      "problem_statement": "Annual planning is a four-month project; bottom-up consolidation is spreadsheets; iterations are slow.",
+      "short_description": "AI-orchestrated AOP: driver-based templates per cost centre, automated consolidation, real-time scenario impact, sensitivity testing.",
+      "typical_roi_metrics": [
+        "AOP cycle time (months)",
+        "Iteration count reduction",
+        "Top-down/bottom-up reconciliation hours saved"
+      ],
+      "use_when": "AOP cycle >3 months; spreadsheet-heavy bottom-up; multiple iteration loops with CEO/board."
+    },
+    {
+      "id": "fi_acc_fpa_02",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "FP&A",
+      "name": "Rolling Forecasts",
+      "problem_statement": "Forecasts are quarterly events, not living documents; revenue, cost, and headcount forecasts drift between cycles.",
+      "short_description": "Continuous rolling forecasts: AI-driven driver forecasts on revenue/cost/headcount/capex, real-time variance to plan, auto-flagged forecast deterioration.",
+      "typical_roi_metrics": [
+        "Forecast-accuracy improvement",
+        "Time-to-refresh forecast",
+        "% revenue/cost lines on driver-based forecast"
+      ],
+      "use_when": "Quarterly-only forecast cycle; large forecast variances vs. actual; demand for monthly refresh from board."
+    },
+    {
+      "id": "fi_acc_fpa_03",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "FP&A",
+      "name": "Long-Range Strategic Plan",
+      "problem_statement": "3-5 year plans are built once and forgotten; strategic alternatives aren't quantitatively compared.",
+      "short_description": "AI-supported LRP: scenario modelling, strategic-alternative comparison, capital allocation across business units, refresh discipline.",
+      "typical_roi_metrics": [
+        "LRP refresh cycle time",
+        "Scenarios modelled per cycle",
+        "Strategic-alternative quantification depth"
+      ],
+      "use_when": "Multi-BU group; recent strategy refresh discussions; capital-allocation decisions on the table."
+    },
+    {
+      "id": "fi_acc_fpa_04",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "FP&A",
+      "name": "Scenario & Sensitivity Modelling",
+      "problem_statement": "Scenarios are hand-built when asked; sensitivity tables are not maintained; alternatives are slow to produce.",
+      "short_description": "AI-driven scenario engine: macro/operational/competitive scenarios run on demand, tornado-chart sensitivity, decision-grade outputs in hours not weeks.",
+      "typical_roi_metrics": [
+        "Time-to-produce-scenario",
+        "Scenarios run per quarter",
+        "Decision-cycle compression"
+      ],
+      "use_when": "Frequent CEO/board scenario requests; manual scenario building; slow decision cycles attributed to modelling lag."
+    },
+    {
+      "id": "fi_acc_fpa_05",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "FP&A",
+      "name": "Driver-Based Planning",
+      "problem_statement": "Plans are line-item-by-line-item in spreadsheets; the drivers behind the numbers aren't explicit.",
+      "short_description": "Driver-based planning rebuild: revenue drivers (volume × price × mix), cost drivers (headcount × rate × utilisation), automated driver tracking against actuals.",
+      "typical_roi_metrics": [
+        "% lines on driver-based forecast",
+        "Forecast accuracy improvement",
+        "Re-plan cycle compression"
+      ],
+      "use_when": "Heavy reliance on spreadsheet line-item planning; weak link between operational drivers and financial outputs."
+    },
+    {
+      "id": "fi_acc_fpa_06",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "FP&A",
+      "name": "Product, Segment, Channel & Customer Profitability",
+      "problem_statement": "P&L is reported by entity; product/segment/channel/customer profitability is a quarterly slide that nobody trusts.",
+      "short_description": "AI-driven cost allocation engine: activity-based assignment, multi-dimensional P&L, customer-level profitability monitoring with confidence indicators.",
+      "typical_roi_metrics": [
+        "Decisions informed by customer P&L",
+        "Cost-allocation cycle compression",
+        "Loss-making customer identification"
+      ],
+      "use_when": "P&L only at entity level; sales force comp tied to revenue not margin; private-equity ownership demanding customer P&L."
+    },
+    {
+      "id": "fi_acc_fpa_07",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "FP&A",
+      "name": "Cost Allocations & Transfer Pricing",
+      "problem_statement": "Allocation rules ossify; the basis becomes mysterious; transfer pricing margins drift from policy.",
+      "short_description": "AI-monitored allocations: keeps allocation rules current, monitors transfer-pricing outcomes against policy, surfaces drift for review.",
+      "typical_roi_metrics": [
+        "Allocation-rule review cycle",
+        "TP policy-vs-actual variance",
+        "Allocation-dispute resolution time"
+      ],
+      "use_when": "Complex allocation framework; intercompany TP arrangements; recent TP audit pressure or queries."
+    },
+    {
+      "id": "fi_acc_fpa_08",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "FP&A",
+      "name": "Capex Governance",
+      "problem_statement": "Capex business cases differ in quality; approvals are politics; post-implementation review rarely happens.",
+      "short_description": "AI-supported capex governance: standard business-case templates, scoring against strategic fit and IRR, automated post-implementation review.",
+      "typical_roi_metrics": [
+        "% capex with post-implementation review",
+        "Capex-realisation variance",
+        "Capex approval cycle time"
+      ],
+      "use_when": "Material capex programme; weak post-investment discipline; capital-allocation pressure from board/sponsor."
+    },
+    {
+      "id": "fi_acc_fpa_09",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "FP&A",
+      "name": "Working Capital Management",
+      "problem_statement": "DSO/DPO/DIO are reported monthly; root-cause analytics are post-hoc; working capital releases are tactical not systematic.",
+      "short_description": "Continuous working-capital monitoring with AI-driven root-cause attribution: customer-level DSO drift, vendor-level DPO opportunities, inventory ageing.",
+      "typical_roi_metrics": [
+        "Working capital released ($)",
+        "DSO/DPO/DIO improvement (days)",
+        "Time-to-detect deterioration"
+      ],
+      "use_when": "Working capital >industry benchmark; pressure from sponsor/CFO; tactical-only working-capital initiatives."
+    },
+    {
+      "id": "fi_acc_fpa_10",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "FP&A",
+      "name": "Cash Flow Forecasting",
+      "problem_statement": "Direct and indirect cash flow forecasts are produced manually each quarter; weekly cash positions are spreadsheet-based.",
+      "short_description": "AI-driven direct cash flow forecasting at daily/weekly granularity; indirect-method tie-out automation; treasury-FP&A integration.",
+      "typical_roi_metrics": [
+        "Cash-flow forecast accuracy",
+        "Forecast-refresh cycle time",
+        "Cash-buffer reduction"
+      ],
+      "use_when": "Cash-flow forecast pain at board meetings; large cash buffers held due to forecast uncertainty; cross-border cash visibility issues."
+    },
+    {
+      "id": "fi_acc_fpa_11",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "FP&A",
+      "name": "Board & Investor Reporting",
+      "problem_statement": "Board packs and earnings prep eat senior FP&A time; investor Q&A prep is firefighting.",
+      "short_description": "AI-assisted board/investor reporting: pack production from live data, narrative drafting from variance signals, investor-Q&A prep from prior calls.",
+      "typical_roi_metrics": [
+        "Board-pack production hours saved",
+        "Senior FP&A time freed",
+        "Investor-question response cycle time"
+      ],
+      "use_when": "Quarterly board cycle; investor calls; manual pack production; CFO time consumed by pack prep."
+    },
+    {
+      "id": "fi_acc_fpa_12",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "FP&A",
+      "name": "KPI Governance & Definitions Library",
+      "problem_statement": "KPI definitions drift across teams; one number, three answers; nobody knows which is right.",
+      "short_description": "AI-governed KPI library: single source of definitions, lineage tracking, drift detection, certification workflow for new KPIs.",
+      "typical_roi_metrics": [
+        "KPI-dispute incidents reduction",
+        "Definition-consistency score",
+        "Time-to-onboard new KPI"
+      ],
+      "use_when": "Recurring KPI disputes; multiple sources for the same number; data-platform investments demanding KPI governance."
+    },
+    {
+      "id": "fi_acc_fpa_13",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "FP&A",
+      "name": "Business Partnering",
+      "problem_statement": "FP&A team produces packs but isn't in commercial/ops/HR rooms; insight lives in finance and dies there.",
+      "short_description": "AI-augmented business partners: enables one finance partner to support multiple business units with deeper analytics, faster turnaround, more ad-hoc support.",
+      "typical_roi_metrics": [
+        "Business-partner coverage ratio",
+        "Time-to-answer ad-hoc questions",
+        "Decisions-influenced score"
+      ],
+      "use_when": "FP&A team thin relative to business units; complaints that finance doesn't show up; demand for self-serve analytics."
+    },
+    {
+      "id": "fi_acc_tax_01",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Tax",
+      "name": "Direct Tax Provisioning & Returns",
+      "problem_statement": "Direct tax provision is built in spreadsheets each quarter; return filings are project work.",
+      "short_description": "AI-driven direct tax provisioning: deferred tax computation, ETR walk, return-to-provision reconciliation, filing workflow.",
+      "typical_roi_metrics": [
+        "Provisioning cycle time",
+        "Return-to-provision variance",
+        "Audit-finding reduction on tax"
+      ],
+      "use_when": "Material tax provision; multi-jurisdiction filings; recurring tax-audit pressure; ETR volatility issues."
+    },
+    {
+      "id": "fi_acc_tax_02",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Tax",
+      "name": "Indirect Tax (GST/VAT) Operations",
+      "problem_statement": "GSTR-2A/2B mismatches drive refund delays; VAT returns are manual; refund cycles are punishing.",
+      "short_description": "AI-orchestrated indirect tax: continuous GST/VAT return prep, GSTR-2A/2B matching, refund tracking, ITC optimisation.",
+      "typical_roi_metrics": [
+        "GSTR mismatch reduction",
+        "Refund cycle time",
+        "ITC recovery uplift"
+      ],
+      "use_when": "Material GST/VAT exposure; refund delays cited; manual ITC reconciliation; multi-state/multi-country VAT."
+    },
+    {
+      "id": "fi_acc_tax_03",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Tax",
+      "name": "Transfer Pricing Documentation",
+      "problem_statement": "TP documentation is annual project work; master file, local file, and CbCR are reactive to deadlines.",
+      "short_description": "AI-supported TP documentation: continuous benchmarking, master/local file generation, CbCR automation, controversy-prep evidence library.",
+      "typical_roi_metrics": [
+        "TP-doc production cycle time",
+        "Benchmark-refresh frequency",
+        "TP-controversy response time"
+      ],
+      "use_when": "BEPS-affected group; complex IC structure; recent TP audit or controversy; manual master/local file prep."
+    },
+    {
+      "id": "fi_acc_tax_04",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Tax",
+      "name": "Withholding Tax Computation & Compliance",
+      "problem_statement": "TDS/WHT computation rules change frequently; certificate management is manual; deposits and returns are deadline-driven.",
+      "short_description": "AI-managed WHT engine: computation rules current, certificate management, deposit scheduling, return reconciliation against tax authority.",
+      "typical_roi_metrics": [
+        "WHT computation accuracy",
+        "Certificate-mismatch reduction",
+        "Penalty/interest avoided"
+      ],
+      "use_when": "Large WHT/TDS portfolio; multi-country payments; recent WHT notices or reconciliation gaps."
+    },
+    {
+      "id": "fi_acc_tax_05",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Tax",
+      "name": "Tax Audits & Litigation Support",
+      "problem_statement": "Tax audit responses are bespoke; evidence is hunted across systems; positions are weakened by slow document retrieval.",
+      "short_description": "AI-assisted audit/litigation support: evidence library, position-paper drafting, precedent tracking, response-cycle management.",
+      "typical_roi_metrics": [
+        "Audit response cycle time",
+        "Position-paper quality (evidenced)",
+        "Litigation-cost reduction"
+      ],
+      "use_when": "Active tax audits or litigation; multi-jurisdiction exposure; weak evidence retrieval; high outside-counsel spend."
+    },
+    {
+      "id": "fi_acc_tax_06",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Tax",
+      "name": "Tax Planning & Structuring",
+      "problem_statement": "Tax planning is annual; structural opportunities (group reorganisation, holding structures, treaty access) are spotted late.",
+      "short_description": "AI-supported tax planning: scenario modelling on structures, treaty benefit analysis, M&A tax due diligence, real-time policy-change impact.",
+      "typical_roi_metrics": [
+        "Tax structures evaluated per year",
+        "Effective tax rate optimisation",
+        "M&A tax DD cycle time"
+      ],
+      "use_when": "Multi-entity group; active M&A; CFO interest in structural optimisation; treaty-network exposure."
+    },
+    {
+      "id": "fi_acc_tre_01",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Treasury",
+      "name": "Cash Positioning & Concentration",
+      "problem_statement": "Cash sits in 30+ bank accounts; concentration moves are weekly; visibility is end-of-day.",
+      "short_description": "AI-orchestrated cash positioning: real-time visibility across bank accounts, optimised concentration moves, idle-cash detection.",
+      "typical_roi_metrics": [
+        "Idle cash reduction ($)",
+        "Concentration cycle time",
+        "Bank-fee reduction"
+      ],
+      "use_when": "Multi-bank/multi-currency cash positions; idle-cash complaints; manual sweep processes."
+    },
+    {
+      "id": "fi_acc_tre_02",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Treasury",
+      "name": "Bank Account Management",
+      "problem_statement": "Bank account opening/closing is paper-heavy; signatory management is informal; audit risk accumulates.",
+      "short_description": "AI-managed bank account lifecycle: opening/closing workflow, signatory governance, audit-ready registry, dormancy detection.",
+      "typical_roi_metrics": [
+        "BAM cycle time",
+        "Signatory-audit findings",
+        "Dormant-account reduction"
+      ],
+      "use_when": "Bank account base >20; multiple banks; recent signatory/audit findings; M&A integration of bank accounts."
+    },
+    {
+      "id": "fi_acc_tre_03",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Treasury",
+      "name": "Liquidity Forecasting",
+      "problem_statement": "Short and medium-term liquidity forecasts are spreadsheet-based; large safety buffers are held because forecasts aren't trusted.",
+      "short_description": "AI-driven liquidity forecasting: short-term (daily/weekly) and medium-term forecasts with confidence intervals, scenario stress-testing, AR/AP-pattern-aware.",
+      "typical_roi_metrics": [
+        "Forecast accuracy improvement",
+        "Cash buffer reduction",
+        "Forecast-refresh cycle time"
+      ],
+      "use_when": "Large cash buffers; refinancing cycles; treasury-FP&A friction on cash visibility."
+    },
+    {
+      "id": "fi_acc_tre_04",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Treasury",
+      "name": "FX Exposure & Hedging",
+      "problem_statement": "FX exposures are identified at month-end; hedging is ad-hoc; P&L impact comes as a surprise.",
+      "short_description": "AI-driven FX exposure monitoring: continuous transaction- and translation-exposure visibility, hedging-policy compliance, hedge-effectiveness assessment.",
+      "typical_roi_metrics": [
+        "FX P&L volatility reduction",
+        "Hedge-effectiveness scores",
+        "Exposure-detection lead time"
+      ],
+      "use_when": "Material FX exposure (multi-currency); recent FX-driven earnings volatility; informal hedge policy."
+    },
+    {
+      "id": "fi_acc_tre_05",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Treasury",
+      "name": "Interest Rate Risk & Hedging",
+      "problem_statement": "Floating-rate debt exposures move with rates; hedging decisions are reactive; rate-cycle scenarios aren't modelled.",
+      "short_description": "AI-driven IR exposure monitoring and hedging-decision support: scenario modelling, hedge-vs-no-hedge cost analysis, hedge-effectiveness assessment.",
+      "typical_roi_metrics": [
+        "IR P&L volatility reduction",
+        "Hedge-effectiveness scores",
+        "Hedge-cycle decision time"
+      ],
+      "use_when": "Floating-rate debt; multi-currency debt portfolio; refinancing cycle; rate-cycle pressure."
+    },
+    {
+      "id": "fi_acc_tre_06",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Treasury",
+      "name": "Debt Management",
+      "problem_statement": "Drawdowns, covenants, repayments, and refinancings live in calendars and spreadsheets; covenant breaches are last-minute scrambles.",
+      "short_description": "AI-managed debt-portfolio platform: drawdown/repayment scheduling, real-time covenant monitoring with predictive breach alerts, refinancing scenario modelling.",
+      "typical_roi_metrics": [
+        "Covenant-breach incidents",
+        "Refinancing decision lead time",
+        "Debt-portfolio admin hours saved"
+      ],
+      "use_when": "Material debt; multiple facilities; covenant-heavy structures; recent or upcoming refinancing."
+    },
+    {
+      "id": "fi_acc_tre_07",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Treasury",
+      "name": "Surplus Investment Management",
+      "problem_statement": "Surplus cash is invested in MMFs and FDs by treasury team; rate-shopping and counterparty diversification are manual.",
+      "short_description": "AI-supported surplus investment: rate-shopping across MMF/FD/MF options, counterparty-risk diversification, policy-compliance monitoring.",
+      "typical_roi_metrics": [
+        "Yield uplift on surplus cash",
+        "Counterparty-risk diversification score",
+        "Compliance-breach reduction"
+      ],
+      "use_when": "Material surplus cash; investment policy in place; treasury-team capacity constrained on yield optimisation."
+    },
+    {
+      "id": "fi_acc_tre_08",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Treasury",
+      "name": "Counterparty Risk Monitoring",
+      "problem_statement": "Counterparty risk (banks, customers, vendors) is reviewed periodically; deterioration is detected late.",
+      "short_description": "AI-driven counterparty risk monitoring: continuous review of bank/customer/vendor financial health, external-signal monitoring, limit enforcement.",
+      "typical_roi_metrics": [
+        "Deterioration-detection lead time",
+        "Counterparty-driven losses avoided",
+        "Limit-breach incidents"
+      ],
+      "use_when": "Large counterparty portfolio; recent counterparty event; international counterparty exposure."
+    },
+    {
+      "id": "fi_acc_tre_09",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Treasury",
+      "name": "In-House Bank / Payment Factory",
+      "problem_statement": "Subsidiary banking is fragmented; intercompany payments are inefficient; bank-fee leakage is high.",
+      "short_description": "AI-orchestrated in-house bank / payment factory: centralised group payments, intercompany-payments-on-net, bank-fee optimisation.",
+      "typical_roi_metrics": [
+        "Bank-fee reduction",
+        "IC payment cycle time",
+        "Idle cash centralisation"
+      ],
+      "use_when": "Multi-subsidiary group; fragmented banking; high IC payment volume; bank-fee leakage complaints."
+    },
+    {
+      "id": "fi_acc_cri_01",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Compliance, Risk & Internal Audit",
+      "name": "Internal Audit Planning & Execution",
+      "problem_statement": "Annual audit plan is built once and rarely refreshed; risk-based audit selection is judgment-driven.",
+      "short_description": "AI-supported internal audit planning: continuous risk scoring across entities and processes, audit-plan optimisation, audit-execution workflow.",
+      "typical_roi_metrics": [
+        "Audit-coverage of high-risk areas",
+        "Audit-cycle compression",
+        "Finding-resolution cycle time"
+      ],
+      "use_when": "IA function operating with limited capacity; risk-based audit ambition; multiple entities to cover."
+    },
+    {
+      "id": "fi_acc_cri_02",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Compliance, Risk & Internal Audit",
+      "name": "Fraud Risk Assessment & Forensics",
+      "problem_statement": "Fraud detection relies on whistleblowers and external auditors; analytical detection is manual.",
+      "short_description": "AI-driven fraud detection: anomaly detection on transactions/expenses/payroll/journal entries, forensic-investigation support, case management.",
+      "typical_roi_metrics": [
+        "Fraud incidents detected analytically",
+        "Investigation cycle time",
+        "Recovery rate on detected fraud"
+      ],
+      "use_when": "High transaction volume; recent fraud incidents; weak analytical-fraud-detection capability."
+    },
+    {
+      "id": "fi_acc_cri_03",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Compliance, Risk & Internal Audit",
+      "name": "Enterprise Risk Register & Reporting",
+      "problem_statement": "Risk register lives in Excel and is updated quarterly; emerging risks are missed.",
+      "short_description": "AI-supported ERM: continuous risk-environment monitoring, emerging-risk detection from external signals, risk-reporting automation.",
+      "typical_roi_metrics": [
+        "Emerging-risk detection lead time",
+        "Risk-register freshness",
+        "Board-risk-pack production hours saved"
+      ],
+      "use_when": "Active board risk committee; emerging-risk discipline ambition; multi-geography risk landscape."
+    },
+    {
+      "id": "fi_acc_cri_04",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Compliance, Risk & Internal Audit",
+      "name": "Regulatory Reporting",
+      "problem_statement": "Regulatory filings (RBI, SEBI, MCA, SEC equivalents) consume disproportionate finance time; submission cycles are deadline-driven.",
+      "short_description": "AI-orchestrated regulatory reporting: filing-cycle workflow, data validation against filing rules, change-tracking against regulatory updates.",
+      "typical_roi_metrics": [
+        "Filing cycle time reduction",
+        "Filing-error incidents",
+        "Penalty/interest avoided"
+      ],
+      "use_when": "Multi-regulator filings; recent filing errors or penalties; large regulatory-reporting team."
+    },
+    {
+      "id": "fi_acc_cri_05",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "Compliance, Risk & Internal Audit",
+      "name": "Whistleblower & Ethics Triage",
+      "problem_statement": "Whistleblower hotline complaints accumulate; triage is manual; pattern detection across complaints is weak.",
+      "short_description": "AI-supported whistleblower-complaint triage: classification, severity scoring, pattern detection across complaints, case-management workflow.",
+      "typical_roi_metrics": [
+        "Triage cycle time",
+        "Pattern-detection lead time",
+        "Case-resolution cycle time"
+      ],
+      "use_when": "Active whistleblower channel; large complaint volume; regulatory expectation on case-handling discipline."
+    },
+    {
+      "id": "fi_acc_esg_01",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "ESG & Sustainability Accounting",
+      "name": "Carbon & Emissions Accounting",
+      "problem_statement": "Scope 1/2/3 emissions data is fragmented across systems; data quality is uncertain; assurance is costly.",
+      "short_description": "AI-orchestrated emissions accounting: Scope 1/2/3 data ingestion from energy/travel/supply-chain systems, factor management, audit trail for assurance.",
+      "typical_roi_metrics": [
+        "Data-quality score on emissions",
+        "Reporting cycle time",
+        "Assurance-readiness score"
+      ],
+      "use_when": "Carbon-reporting obligation (BRSR, CSRD, TCFD); multi-site/multi-country operations; recent assurance complaints."
+    },
+    {
+      "id": "fi_acc_esg_02",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "ESG & Sustainability Accounting",
+      "name": "Sustainability Reporting (BRSR / CSRD / TCFD)",
+      "problem_statement": "Sustainability reporting is annual project work; data is gathered manually each year; framework mappings are bespoke.",
+      "short_description": "AI-supported sustainability reporting: framework-mapping automation, narrative drafting from data signals, year-on-year consistency.",
+      "typical_roi_metrics": [
+        "Reporting cycle time",
+        "Framework-mapping completeness",
+        "Disclosure-consistency score"
+      ],
+      "use_when": "BRSR/CSRD/TCFD scope; annual reporting cycle; manual data gathering; consistency complaints from auditors/users."
+    },
+    {
+      "id": "fi_acc_esg_03",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Accounting & CFO Office",
+      "theme": "ESG & Sustainability Accounting",
+      "name": "Sustainability Assurance Support",
+      "problem_statement": "Assurance over sustainability data is a fire drill; evidence is scattered; assurance providers ask for more than is available.",
+      "short_description": "AI-driven assurance support: continuous evidence collection, sample-selection for assurance, walkthrough documentation, control-test automation.",
+      "typical_roi_metrics": [
+        "Assurance prep cycle time",
+        "Assurance-finding reduction",
+        "Information-request-response time"
+      ],
+      "use_when": "Active sustainability assurance engagement; recurring assurance findings; data-evidence gaps."
+    },
+    {
+      "id": "fi_tx_recon_01",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Transactions",
+      "theme": "Reconciliations",
+      "name": "High-Volume Multi-System Reconciliations",
+      "problem_statement": "Reconciliations across payment processors, settlement banks, internal ledgers, and partner platforms run at millions of records/day with manual exception handling.",
+      "short_description": "AI-driven high-volume reconciliation engine: real-time multi-leg matching across payment processor, settlement bank, internal ledger, partner platform; auto-classification of breaks; case-managed exceptions.",
+      "typical_roi_metrics": [
+        "Reconciliation cycle time",
+        "Unmatched-item aging reduction",
+        "Exception-resolution FTE hours saved"
+      ],
+      "use_when": "Payment processor, banking, fintech, or platform business; daily reconciliation volumes >100K records; large exception-handling team; recent settlement disputes."
+    },
+    {
+      "id": "fi_tx_lend_01",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Transactions",
+      "theme": "Lending Operations",
+      "name": "Lending Operations",
+      "problem_statement": "Lending lifecycle (origination → underwriting → servicing → collections → recovery) runs across LMS, LOS, CBS, and BI systems with manual handoffs and exception handling.",
+      "short_description": "AI-orchestrated lending operations layer: underwriting decision support, servicing exception handling, repayment-behaviour monitoring, early-warning signals, collections optimisation.",
+      "typical_roi_metrics": [
+        "Cost-to-serve per loan",
+        "Origination cycle time",
+        "NPA detection lead time",
+        "Recovery rate uplift"
+      ],
+      "use_when": "Active lending portfolio (banks, NBFCs, fintech lenders, captives); manual underwriting/servicing handoffs; rising NPA pressure; cost-to-serve gap vs digital-native peers."
+    },
+    {
+      "id": "fi_tx_ins_01",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Transactions",
+      "theme": "Insurance Operations",
+      "name": "Insurance Operations",
+      "problem_statement": "Insurance ops (policy admin → claims → renewals) involves heavy document processing, fraud detection, customer-correspondence workflow, and reserves estimation.",
+      "short_description": "AI-orchestrated insurance ops layer: claims triage and fraud detection, policy admin straight-through processing, document understanding, reserves estimation support.",
+      "typical_roi_metrics": [
+        "Claims cycle time",
+        "Fraud-detection rate",
+        "Cost per policy",
+        "STP rate uplift"
+      ],
+      "use_when": "Active insurance carrier or broker operations (life, health, general); manual claims processing; fraud-loss pressure; policy-admin backlog complaints."
+    },
+    {
+      "id": "fi_tx_cff_01",
+      "form_pillar": "financial_intelligence",
+      "sub_pillar": "Transactions",
+      "theme": "Customer-Facing Financial Operations",
+      "name": "Customer-Facing Financial Operations",
+      "problem_statement": "Customer-facing finance ops (customer onboarding, KYC, AML, transaction monitoring, dispute handling, communication) are a regulated, high-volume, customer-satisfaction-critical domain.",
+      "short_description": "AI-orchestrated customer-facing ops layer: AML transaction monitoring, dispute triage, KYC remediation, customer communication automation with regulator-compliant audit trail.",
+      "typical_roi_metrics": [
+        "Customer-onboarding cycle time",
+        "AML false-positive reduction",
+        "Dispute-resolution cycle time",
+        "Customer satisfaction (NPS) uplift"
+      ],
+      "use_when": "Bank, fintech, NBFC, payments, or wealth platform with retail customer base; active AML obligation; manual dispute and KYC processes; regulatory pressure."
+    }
+  ]
+}

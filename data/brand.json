@@ -1,0 +1,51 @@
+{
+  "version": "v1.0",
+  "brand_name": "Aistra",
+  "tagline": "Better with AI",
+  "colors": {
+    "background_dark": "#0C0F1A",
+    "primary_purple": "#6C48F2",
+    "navy": "#111827",
+    "accent_cyan": "#00D9FF",
+    "accent_pink": "#FF5CB6",
+    "accent_teal": "#00E8FB",
+    "text_primary_dark": "#FFFFFF",
+    "text_secondary_dark": "#A1A4B0",
+    "text_primary_light": "#111827",
+    "text_secondary_light": "#5F5E5A",
+    "card_background_light": "#FFFFFF",
+    "card_border_light": "#E5E7EB"
+  },
+  "fonts": {
+    "display": "Georgia",
+    "body": "Calibri",
+    "monospace": "Consolas"
+  },
+  "layout": {
+    "slide_aspect_ratio": "16:9",
+    "slide_width_inches": 13.333,
+    "slide_height_inches": 7.5,
+    "margin_inches": 0.5,
+    "logo_position": "top-left",
+    "page_number_position": "bottom-right"
+  },
+  "typography_sizes_pt": {
+    "title": 32,
+    "section_header": 24,
+    "subtitle": 18,
+    "body": 14,
+    "caption": 11,
+    "footnote": 9
+  },
+  "voice_tone": {
+    "register": "MBB consulting",
+    "style": "Direct declarative; no hype; no marketing language; numbers where defensible, ranges otherwise; prose-leaning, not bullet-heavy",
+    "things_to_avoid": [
+      "Empty AI hype phrases",
+      "Vague benefit claims without numbers",
+      "Bullet-point-only slides",
+      "Marketing speak (revolutionary, transformative, world-class)",
+      "Buzzword stacking"
+    ]
+  }
+}
