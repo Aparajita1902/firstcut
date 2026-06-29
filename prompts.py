@@ -1090,7 +1090,7 @@ arrays/strings where a part genuinely has no content):
     "title_parts": [["dark part ", "ink"], ["purple emphasis.", "purple"]],
     "subtitle": "one line",
     "cards": [{"tag": "short label", "metric": "~80%", "desc": "what it is",
-               "body": "1-2 sentences", "fact_refs": ["F001"]}],
+               "body": "one sentence, <=110 chars", "fact_refs": ["F001"]}],
     "left":  {"header": "string", "items": ["...", "..."]},
     "right": {"header": "string", "items": ["...", "..."]},
     "sources": "Sources: ..."
@@ -1130,7 +1130,9 @@ RULES:
   For "compare", give each column 3-4 short, scannable items (not 5 long sentences) — each one
   tight point, ideally <=16 words, so it fits without truncating. For "cards", `metric` is a
   single short figure that may carry a unit ("$300M ARR", "1.6 / 5"); keep it brief so it stays
-  on one line, and keep `desc` to one short line.
+  on one line, keep `desc` to one short line, and keep each card `body` to ONE sentence of
+  ~110 characters max (it sits in a narrow card under a possibly two-line title — longer text
+  is forced to shrink or truncate).
 - `opportunity_areas.opportunities`: ONE per core hypothesis, in the given order. `pillar` must
   be the lowercase pillar id (revenue|customer|operational|financial|workforce). `body` is ONE
   line — keep it short enough to render on a card without wrapping past two lines.
