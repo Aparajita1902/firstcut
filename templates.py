@@ -35,7 +35,7 @@ import os as _os
 
 # Bump this whenever templates change. Surface it in the app (e.g. st.caption) to confirm
 # at a glance which version is actually deployed. Slide-2 fit-to-content + header-wrap build.
-TEMPLATES_VERSION = "2026-06-29-slide2-fit-v5"
+TEMPLATES_VERSION = "2026-06-29-slide2-fit-v7"
 
 
 # --------------------------------------------------------------------------------- #
@@ -787,6 +787,13 @@ def apply_uniform_footer(prs: Presentation, company_name: str, section_names: li
     purple = _brand(brand, "primary_purple")
     muted  = _brand(brand, "muted")
     body   = _brand(brand, "body_font")
+    # Stamp the templates version into the file's properties so any generated deck reveals
+    # exactly which renderer made it (PowerPoint: File > Info > Comments). This makes "is the
+    # fix deployed?" answerable from the deck itself, with no guessing.
+    try:
+        prs.core_properties.comments = f"Aistra templates {TEMPLATES_VERSION}"
+    except Exception:
+        pass
     sw = prs.slide_width
     sh = prs.slide_height
     for i, slide in enumerate(prs.slides, start=1):
@@ -1002,11 +1009,11 @@ def render_strategic_context_cards(prs, content, brand):
     cy = max(2.30, 1.27 + th + 0.06 + sub_h + 0.10)
     bottom = 6.40
     ch = bottom - cy
-    tag_y = cy + 0.27
-    cy_m = cy + 1.02
-    cy_d = cy + 1.98
-    cy_b = cy + 2.60
-    body_bottom = cy + ch - 0.16
+    tag_y = cy + 0.24
+    cy_m = cy + 0.90
+    cy_d = cy + 1.78
+    cy_b = cy + 2.40
+    body_bottom = cy + ch - 0.14
 
     # One metric font size that keeps every metric on a single line (units like "ARR",
     # "clients", "people" can push "$300M ARR" past the card width otherwise).
@@ -1017,17 +1024,20 @@ def render_strategic_context_cards(prs, content, brand):
     desc_fs = 14.67
     for c in cards:
         d = str(c.get("desc", ""))
-        while desc_fs > 11.5 and _est_lines(d, desc_fs, cw - 0.6) > 2:
+        while desc_fs > 8.5 and _est_lines(d, desc_fs, cw - 0.6) > 2:
             desc_fs -= 0.5
 
-    # One body font that fits the longest body in the available height (shrink, then clamp
-    # as a final backstop) — a two-line title leaves less room, so bodies must shrink to fit.
+    # One body font that fits the longest body in the available height. Use a REALISTIC line
+    # height (the rendered leading runs ~1.5x the point size in this environment, more than the
+    # 1.2 the estimator assumes), so a body that "fits on paper" doesn't spill past the card.
     body_top = cy_b
     body_h = max(0.6, body_bottom - body_top)
+    def _real_h(fs):  # conservative rendered line height
+        return fs / 72.0 * 1.5
     body_fs = 14.0
     for c in cards:
         b = str(c.get("body", ""))
-        while body_fs > 10.0 and _est_lines(b, body_fs, cw - 0.6) * _line_h_in(body_fs) > body_h:
+        while body_fs > 8.0 and _est_lines(b, body_fs, cw - 0.6) * _real_h(body_fs) > body_h:
             body_fs -= 0.5
 
     for x, c, acc in zip(xs, cards, _SC_ACCENTS):
@@ -1042,7 +1052,7 @@ def render_strategic_context_cards(prs, content, brand):
            font_size=msz_fit, bold=True, color_hex=met)
         _t(slide, x + 0.33, cy_d, cw - 0.6, 0.55, _clamp(c.get("desc", ""), cw - 0.6, desc_fs, 2),
            font_name="Calibri", font_size=desc_fs, bold=True, color_hex=ink)
-        body_lines = max(2, int(body_h / _line_h_in(body_fs)))
+        body_lines = max(2, int(body_h / _real_h(body_fs)))
         _t(slide, x + 0.33, body_top, cw - 0.6, body_h,
            _clamp(c.get("body", ""), cw - 0.6, body_fs, body_lines),
            font_name="Calibri Light", font_size=body_fs, color_hex=slate)

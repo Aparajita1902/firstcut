@@ -1089,10 +1089,10 @@ arrays/strings where a part genuinely has no content):
     "layout": "cards|compare",
     "title_parts": [["dark part ", "ink"], ["purple emphasis.", "purple"]],
     "subtitle": "one line",
-    "cards": [{"tag": "short label", "metric": "~80%", "desc": "what it is",
-               "body": "one sentence, <=110 chars", "fact_refs": ["F001"]}],
-    "left":  {"header": "string", "items": ["...", "..."]},
-    "right": {"header": "string", "items": ["...", "..."]},
+    "cards": [{"tag": "short label", "metric": "~80% (<=12 chars)", "desc": "what it is (<=60 / 4-card <=45)",
+               "body": "one sentence (<=100 / 4-card <=80 chars)", "fact_refs": ["F001"]}],
+    "left":  {"header": "string", "items": ["<=100 chars each", "..."]},
+    "right": {"header": "string", "items": ["<=100 chars each", "..."]},
     "sources": "Sources: ..."
   },
   "opportunity_areas": {
@@ -1127,12 +1127,13 @@ RULES:
   cards/items rendered must match it exactly. Never claim a count the slide does not show.
 - `strategic_context.layout`: use "cards" for <=3 punchy metrics; "compare" for a
   two-column "data they have vs what tooling ignores" contrast. Fill the matching keys only.
-  For "compare", give each column 3-4 short, scannable items (not 5 long sentences) — each one
-  tight point, ideally <=16 words, so it fits without truncating. For "cards", `metric` is a
-  single short figure that may carry a unit ("$300M ARR", "1.6 / 5"); keep it brief so it stays
-  on one line, keep `desc` to one short line, and keep each card `body` to ONE sentence of
-  ~110 characters max (it sits in a narrow card under a possibly two-line title — longer text
-  is forced to shrink or truncate).
+  HARD CHARACTER LIMITS — never exceed these, so nothing ever truncates:
+  • "cards" with 3 cards: `desc` <=60 chars, `body` <=100 chars.
+  • "cards" with 4 cards: `desc` <=45 chars, `body` <=80 chars (4 cards are narrower).
+  • "cards" `metric`: <=12 chars, one short figure that may carry a unit ("$300M ARR", "1.6 / 5").
+  • "compare": each column has 3-4 items; every item <=100 chars (count the characters).
+  Write to the lower (4-card) limit if unsure how many cards you'll use. These are character
+  counts, not guidelines — a bullet at 101 chars must be rewritten shorter, not submitted.
 - `opportunity_areas.opportunities`: ONE per core hypothesis, in the given order. `pillar` must
   be the lowercase pillar id (revenue|customer|operational|financial|workforce). `body` is ONE
   line — keep it short enough to render on a card without wrapping past two lines.
