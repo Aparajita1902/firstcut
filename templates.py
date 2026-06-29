@@ -146,7 +146,7 @@ def _est_lines(text: str, font_size_pt: float, width_in: float, *, display: bool
     than overlap. `display` widens the per-char estimate slightly for serif headers."""
     if not text:
         return 1
-    cw_factor = 0.50 if display else 0.48  # avg char advance as a fraction of em
+    cw_factor = 0.53 if display else 0.52  # avg char advance as a fraction of em
     char_w_in = (font_size_pt / 72.0) * cw_factor
     cpl = max(1, int(width_in / char_w_in))
     return max(1, _math.ceil(len(str(text)) / cpl))
@@ -658,9 +658,9 @@ def render_deep_dive(prs: Presentation, content: dict, brand: dict, *,
         return h
 
     fs_fit = 14
-    while fs_fit > 11 and (
-        _col_h(pts, txt_w_in, fs_fit, 0.34, 0.16) > col_avail
-        or _col_h(levers, lev_txt_w_in, fs_fit, 0.40, 0.18) > col_avail
+    while fs_fit > 9.5 and (
+        _col_h(pts, txt_w_in, fs_fit, 0.30, 0.14) > col_avail
+        or _col_h(levers, lev_txt_w_in, fs_fit, 0.36, 0.16) > col_avail
     ):
         fs_fit -= 0.5
     p_fs = l_fs = fs_fit
@@ -677,7 +677,7 @@ def render_deep_dive(prs: Presentation, content: dict, brand: dict, *,
         rh = nlines * _line_h_in(p_fs)
         _add_textbox(slide, txt_x, Inches(cy - 0.02), Inches(txt_w_in), Inches(rh + 0.1),
                      pt, font_name=body, font_size=p_fs, color_hex=ink)
-        cy += max(0.34, rh) + 0.16
+        cy += max(0.30, rh) + 0.14
 
     # RIGHT: THE OPPORTUNITY
     _add_textbox(slide, right_x, Inches(body_top), Inches(right_w_in), Inches(0.26),
@@ -697,7 +697,7 @@ def render_deep_dive(prs: Presentation, content: dict, brand: dict, *,
         rh = nlines * _line_h_in(l_fs)
         _add_textbox(slide, lev_txt_x, Inches(ry - 0.01), Inches(lev_txt_w_in), Inches(rh + 0.1),
                      lev, font_name=body, font_size=l_fs, color_hex=ink)
-        ry += max(0.40, rh) + 0.18
+        ry += max(0.36, rh) + 0.16
 
     # BOTTOM RIBBON
     band = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, margin, Inches(ribbon_top),
@@ -981,33 +981,54 @@ _SC_ACCENTS = [  # bar, metric, tag-text
 def render_strategic_context_cards(prs, content, brand):
     ink = _brand(brand, "ink"); slate = _brand(brand, "muted")
     slide = _add_blank_slide(prs)
-    two_line = sum(len(t) for t, _ in content.get("title_parts", [])) > 46
-    _header(slide, content.get("pill", "Strategic context"), content.get("title_parts", [(" ", "ink")]), brand,
-            subtitle=("" if two_line else content.get("subtitle", "")),
-            subtitle_color=_brand(brand, "muted"), subtitle_italic=True)
+    subtitle = content.get("subtitle", "")
+    th = _header(slide, content.get("pill", "Strategic context"),
+                 content.get("title_parts", [(" ", "ink")]), brand,
+                 subtitle=subtitle, subtitle_color=_brand(brand, "muted"), subtitle_italic=True)
+
     cards = content.get("cards", [])
     n = len(cards)
     if n <= 3:
-        xs = [0.8, 4.93, 9.07][:n]; cw = 3.73; msz = 48; cy_m = 3.33; cy_d = 4.30; cy_b = 4.95
+        xs = [0.8, 4.93, 9.07][:n]; cw = 3.73; msz = 48
     else:
-        xs = [0.8, 3.84, 6.88, 10.07][:n]; cw = 2.85; msz = 37.33; cy_m = 3.14; cy_d = 3.96; cy_b = 4.55
-    two_line2 = sum(len(t) for t, _ in content.get("title_parts", [])) > 46
-    dy = 0.30 if two_line2 else 0.0
-    cy = 2.28 + dy; ch = 4.12 - dy
-    body_bottom = cy + ch - 0.18
+        xs = [0.8, 3.84, 6.88, 10.07][:n]; cw = 2.85; msz = 37.33
+
+    # Start the cards BELOW the (possibly two-line) subtitle so it can't bleed through.
+    sub_h = (_est_lines(subtitle, 15.5, 11.6) * _line_h_in(15.5) + 0.10) if subtitle else 0.0
+    cy = max(2.30, 1.27 + th + 0.06 + sub_h + 0.10)
+    bottom = 6.40
+    ch = bottom - cy
+    tag_y = cy + 0.27
+    cy_m = cy + 1.02
+    cy_d = cy + 1.98
+    cy_b = cy + 2.60
+    body_bottom = cy + ch - 0.16
+
+    # One metric font size that keeps every metric on a single line (units like "ARR",
+    # "clients", "people" can push "$300M ARR" past the card width otherwise).
+    msz_fit = msz
+    for c in cards:
+        msz_fit = min(msz_fit, _fit_one_line_fs(str(c.get("metric", "")), cw - 0.5, msz, 24))
+    # One descriptor font that fits the longest desc in two lines (shrink, don't truncate).
+    desc_fs = 14.67
+    for c in cards:
+        d = str(c.get("desc", ""))
+        while desc_fs > 11.5 and _est_lines(d, desc_fs, cw - 0.6) > 2:
+            desc_fs -= 0.5
+
     for x, c, acc in zip(xs, cards, _SC_ACCENTS):
         bar, met, tag = acc
         _rrect(slide, x, cy, cw, ch, "F1F0FB", adj=0.06)
         _rect2(slide, x, cy, cw, 0.07, bar)
         tagw = min(cw - 0.4, max(1.4, len(c.get("tag", "")) * 0.085 + 0.4))
-        _rrect(slide, x + 0.33, 2.55 + dy, tagw, 0.37, _tint(tag), adj=0.5)
-        _t(slide, x + 0.33, 2.545 + dy, tagw, 0.37, c.get("tag", ""), font_name="Calibri", font_size=10.67,
+        _rrect(slide, x + 0.33, tag_y, tagw, 0.37, _tint(tag), adj=0.5)
+        _t(slide, x + 0.33, tag_y - 0.005, tagw, 0.37, c.get("tag", ""), font_name="Calibri", font_size=10.67,
            bold=True, color_hex=tag, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-        _t(slide, x + 0.33, cy_m + dy, cw - 0.5, 0.8, c.get("metric", ""), font_name="Calibri",
-           font_size=msz, bold=True, color_hex=met)
-        _t(slide, x + 0.33, cy_d + dy, cw - 0.6, 0.55, c.get("desc", ""), font_name="Calibri",
-           font_size=14.67, bold=True, color_hex=ink)
-        body_top = cy_b + dy
+        _t(slide, x + 0.33, cy_m, cw - 0.5, 0.8, c.get("metric", ""), font_name="Calibri",
+           font_size=msz_fit, bold=True, color_hex=met)
+        _t(slide, x + 0.33, cy_d, cw - 0.6, 0.55, _clamp(c.get("desc", ""), cw - 0.6, desc_fs, 2),
+           font_name="Calibri", font_size=desc_fs, bold=True, color_hex=ink)
+        body_top = cy_b
         body_h = max(0.6, body_bottom - body_top)
         body_lines = max(2, int(body_h / _line_h_in(14)))
         _t(slide, x + 0.33, body_top, cw - 0.6, body_h,
@@ -1037,18 +1058,28 @@ def render_strategic_context_compare(prs, content, brand):
     item_w = cw - 1.1
     items_top = cy + 0.66
     avail = (cy + ch - 0.14) - items_top
-    gap = 0.10
-    MAXL = 2  # compare bullets clamp to two lines so columns stay scannable and bounded
+    gap = 0.12
+    # Give sparse columns room to breathe (3 lines) so long bullets aren't truncated;
+    # clamp denser columns to 2 lines so they stay bounded.
+    max_rows = max((len([1 for it in (c[4].get("items") or [])[:5] if str(it).strip()]) for c in cols), default=0)
+    MAXL = 3 if max_rows <= 4 else 2
 
-    # One shared font size that fits the denser of the two columns (keeps them matched).
     def _col_items(col):
         return [_clamp(str(it).strip(), item_w, 13, MAXL)
                 for it in (col.get("items") or [])[:5] if str(it).strip()]
-    def _col_h(items, fs):
-        return sum(_est_lines(it, fs, item_w) * _line_h_in(fs) + gap for it in items)
+    # Each item gets a uniform MAXL-line slot, so rows can never overlap regardless of how
+    # the estimator and the renderer disagree on a given line's wrap. One shared font size
+    # that lets the denser column's slots fit the available height.
+    def _rows(col):
+        return len(_col_items(col))
+    def _slot_h(fs):
+        return MAXL * _line_h_in(fs)
+    def _col_h(col, fs):
+        return _rows(col) * (_slot_h(fs) + gap)
     fs = 13.0
-    while fs > 9.0 and max(_col_h(_col_items(c[4]), fs) for c in cols) > avail:
+    while fs > 8.5 and max(_col_h(c[4], fs) for c in cols) > avail:
         fs -= 0.5
+    slot_h = _slot_h(fs)
 
     for x, hd, ic_col, ic, col in cols:
         _rrect(slide, x, cy, cw, ch, "F1F0FB", adj=0.05)
@@ -1057,12 +1088,11 @@ def render_strategic_context_compare(prs, content, brand):
            font_size=16, bold=True, color_hex=hd)
         ry = items_top
         for it in _col_items(col):
-            rh = _est_lines(it, fs, item_w) * _line_h_in(fs)
             _t(slide, x + 0.33, ry, 0.33, 0.30, ic, font_name="Calibri", font_size=min(15, fs + 1.5),
                bold=True, color_hex=ic_col, align=PP_ALIGN.CENTER)
-            _t(slide, x + 0.73, ry, item_w, rh + 0.12, it, font_name="Calibri Light",
+            _t(slide, x + 0.73, ry, item_w, slot_h + 0.12, it, font_name="Calibri Light",
                font_size=fs, color_hex=slate)
-            ry += rh + gap
+            ry += slot_h + gap
     _sources(slide, content.get("sources", ""), brand)
 
 
@@ -1202,7 +1232,7 @@ def render_opportunity_areas(prs, content, brand):
         body_h = max(0.4, (y + ch) - body_top - 0.10)
         body_lines = max(1, int(body_h / _line_h_in(bosz)))
         _t(slide, tx, body_top, tw, body_h,
-           _clamp(o.get("body", ""), tw * 0.94, bosz, body_lines),
+           _clamp(o.get("body", ""), tw, bosz, body_lines),
            font_name="Calibri Light", font_size=bosz, color_hex=slate)
 
 

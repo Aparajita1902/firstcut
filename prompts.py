@@ -1127,6 +1127,10 @@ RULES:
   cards/items rendered must match it exactly. Never claim a count the slide does not show.
 - `strategic_context.layout`: use "cards" for <=3 punchy metrics; "compare" for a
   two-column "data they have vs what tooling ignores" contrast. Fill the matching keys only.
+  For "compare", give each column 3-4 short, scannable items (not 5 long sentences) — each one
+  tight point, ideally <=16 words, so it fits without truncating. For "cards", `metric` is a
+  single short figure that may carry a unit ("$300M ARR", "1.6 / 5"); keep it brief so it stays
+  on one line, and keep `desc` to one short line.
 - `opportunity_areas.opportunities`: ONE per core hypothesis, in the given order. `pillar` must
   be the lowercase pillar id (revenue|customer|operational|financial|workforce). `body` is ONE
   line — keep it short enough to render on a card without wrapping past two lines.
