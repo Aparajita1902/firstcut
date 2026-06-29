@@ -1016,6 +1016,16 @@ def render_strategic_context_cards(prs, content, brand):
         while desc_fs > 11.5 and _est_lines(d, desc_fs, cw - 0.6) > 2:
             desc_fs -= 0.5
 
+    # One body font that fits the longest body in the available height (shrink, then clamp
+    # as a final backstop) — a two-line title leaves less room, so bodies must shrink to fit.
+    body_top = cy_b
+    body_h = max(0.6, body_bottom - body_top)
+    body_fs = 14.0
+    for c in cards:
+        b = str(c.get("body", ""))
+        while body_fs > 10.0 and _est_lines(b, body_fs, cw - 0.6) * _line_h_in(body_fs) > body_h:
+            body_fs -= 0.5
+
     for x, c, acc in zip(xs, cards, _SC_ACCENTS):
         bar, met, tag = acc
         _rrect(slide, x, cy, cw, ch, "F1F0FB", adj=0.06)
@@ -1028,12 +1038,10 @@ def render_strategic_context_cards(prs, content, brand):
            font_size=msz_fit, bold=True, color_hex=met)
         _t(slide, x + 0.33, cy_d, cw - 0.6, 0.55, _clamp(c.get("desc", ""), cw - 0.6, desc_fs, 2),
            font_name="Calibri", font_size=desc_fs, bold=True, color_hex=ink)
-        body_top = cy_b
-        body_h = max(0.6, body_bottom - body_top)
-        body_lines = max(2, int(body_h / _line_h_in(14)))
+        body_lines = max(2, int(body_h / _line_h_in(body_fs)))
         _t(slide, x + 0.33, body_top, cw - 0.6, body_h,
-           _clamp(c.get("body", ""), cw - 0.6, 14, body_lines),
-           font_name="Calibri Light", font_size=14, color_hex=slate)
+           _clamp(c.get("body", ""), cw - 0.6, body_fs, body_lines),
+           font_name="Calibri Light", font_size=body_fs, color_hex=slate)
     _sources(slide, content.get("sources", ""), brand)
 
 
@@ -1059,40 +1067,42 @@ def render_strategic_context_compare(prs, content, brand):
     items_top = cy + 0.66
     avail = (cy + ch - 0.14) - items_top
     gap = 0.12
-    # Give sparse columns room to breathe (3 lines) so long bullets aren't truncated;
-    # clamp denser columns to 2 lines so they stay bounded.
-    max_rows = max((len([1 for it in (c[4].get("items") or [])[:5] if str(it).strip()]) for c in cols), default=0)
-    MAXL = 3 if max_rows <= 4 else 2
 
-    def _col_items(col):
-        return [_clamp(str(it).strip(), item_w, 13, MAXL)
-                for it in (col.get("items") or [])[:5] if str(it).strip()]
-    # Each item gets a uniform MAXL-line slot, so rows can never overlap regardless of how
-    # the estimator and the renderer disagree on a given line's wrap. One shared font size
-    # that lets the denser column's slots fit the available height.
-    def _rows(col):
-        return len(_col_items(col))
-    def _slot_h(fs):
-        return MAXL * _line_h_in(fs)
-    def _col_h(col, fs):
-        return _rows(col) * (_slot_h(fs) + gap)
+    def _items(col):
+        return [str(it).strip() for it in (col.get("items") or [])[:5] if str(it).strip()]
+
+    # Shared font size: the largest at which the FULL text of every item in the denser
+    # column fits the available height (accumulated natural line counts). No fixed line
+    # cap — long bullets get more lines and a smaller font instead of being truncated.
+    def _col_h(items, fs):
+        h = 0.0
+        for it in items:
+            h += _est_lines(it, fs, item_w) * _line_h_in(fs) + gap
+        return h
+    FLOOR = 9.0
     fs = 13.0
-    while fs > 8.5 and max(_col_h(c[4], fs) for c in cols) > avail:
+    while fs > FLOOR and max(_col_h(_items(c[4]), fs) for c in cols) > avail:
         fs -= 0.5
-    slot_h = _slot_h(fs)
+    line_h = _line_h_in(fs)
+    # If even at the floor a column would overflow (very dense), clamp items just enough.
+    overflow = max(_col_h(_items(c[4]), fs) for c in cols) > avail
 
     for x, hd, ic_col, ic, col in cols:
         _rrect(slide, x, cy, cw, ch, "F1F0FB", adj=0.05)
         _rect2(slide, x, cy, cw, 0.07, hd)
         _t(slide, x + 0.33, cy + 0.18, cw - 0.6, 0.4, col.get("header", ""), font_name="Calibri",
            font_size=16, bold=True, color_hex=hd)
+        items = _items(col)
+        budget = max(2, int((avail / max(1, len(items)) - gap) / line_h)) if overflow else 99
         ry = items_top
-        for it in _col_items(col):
+        for it in items:
+            it = _clamp(it, item_w, fs, budget)
+            rh = _est_lines(it, fs, item_w) * line_h
             _t(slide, x + 0.33, ry, 0.33, 0.30, ic, font_name="Calibri", font_size=min(15, fs + 1.5),
                bold=True, color_hex=ic_col, align=PP_ALIGN.CENTER)
-            _t(slide, x + 0.73, ry, item_w, slot_h + 0.12, it, font_name="Calibri Light",
+            _t(slide, x + 0.73, ry, item_w, rh + 0.12, it, font_name="Calibri Light",
                font_size=fs, color_hex=slate)
-            ry += slot_h + gap
+            ry += rh + gap
     _sources(slide, content.get("sources", ""), brand)
 
 
