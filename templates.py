@@ -33,6 +33,10 @@ from pptx.util import Inches, Pt, Emu
 import datetime as _datetime
 import os as _os
 
+# Bump this whenever templates change. Surface it in the app (e.g. st.caption) to confirm
+# at a glance which version is actually deployed. Slide-2 fit-to-content + header-wrap build.
+TEMPLATES_VERSION = "2026-06-29-slide2-fit-v5"
+
 
 # --------------------------------------------------------------------------------- #
 # Brand defaults — used only when brand.json doesn't supply a key
@@ -1064,8 +1068,14 @@ def render_strategic_context_compare(prs, content, brand):
             (7.07, "EC4899", "EC4899", "\u2717", content.get("right", {"header": "", "items": []}))]
     cw = 5.47
     item_w = cw - 1.1
-    items_top = cy + 0.66
-    avail = (cy + ch - 0.14) - items_top
+    hdr_w = cw - 0.6
+    # Headers can wrap to two lines (e.g. "What the current commercial model leaves on the
+    # table"); start the items below the TALLER header so they never collide, and keep both
+    # columns aligned by using the same items_top.
+    hdr_lines = max(1, min(2, max(_est_lines(c[4].get("header", ""), 16, hdr_w) for c in cols)))
+    hdr_h = hdr_lines * _line_h_in(16)
+    items_top = cy + 0.20 + hdr_h + 0.16
+    avail = (cy + ch - 0.20) - items_top
     gap = 0.12
 
     def _items(col):
@@ -1079,7 +1089,7 @@ def render_strategic_context_compare(prs, content, brand):
         for it in items:
             h += _est_lines(it, fs, item_w) * _line_h_in(fs) + gap
         return h
-    FLOOR = 9.0
+    FLOOR = 8.5
     fs = 13.0
     while fs > FLOOR and max(_col_h(_items(c[4]), fs) for c in cols) > avail:
         fs -= 0.5
@@ -1090,8 +1100,8 @@ def render_strategic_context_compare(prs, content, brand):
     for x, hd, ic_col, ic, col in cols:
         _rrect(slide, x, cy, cw, ch, "F1F0FB", adj=0.05)
         _rect2(slide, x, cy, cw, 0.07, hd)
-        _t(slide, x + 0.33, cy + 0.18, cw - 0.6, 0.4, col.get("header", ""), font_name="Calibri",
-           font_size=16, bold=True, color_hex=hd)
+        _t(slide, x + 0.33, cy + 0.20, hdr_w, hdr_h + 0.12, _clamp(col.get("header", ""), hdr_w, 16, 2),
+           font_name="Calibri", font_size=16, bold=True, color_hex=hd)
         items = _items(col)
         budget = max(2, int((avail / max(1, len(items)) - gap) / line_h)) if overflow else 99
         ry = items_top
