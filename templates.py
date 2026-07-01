@@ -34,8 +34,9 @@ import datetime as _datetime
 import os as _os
 
 # Bump this whenever templates change. Surface it in the app (e.g. st.caption) to confirm
-# at a glance which version is actually deployed. Slide-2 fit-to-content + header-wrap build.
-TEMPLATES_VERSION = "2026-06-29-slide2-fit-v7"
+# at a glance which version is actually deployed. v8: single per-glyph width model behind
+# every shrink/wrap decision (retires the flat cw_factor that under-counted wide metrics).
+TEMPLATES_VERSION = "2026-06-29-slide2-fit-v8"
 
 
 # --------------------------------------------------------------------------------- #
@@ -144,16 +145,91 @@ def _add_card(slide, left, top, width, height, fill_hex, border_hex=None, left_a
 import math as _math
 
 
-def _est_lines(text: str, font_size_pt: float, width_in: float, *, display: bool = False) -> int:
-    """Estimate how many lines `text` wraps to in a box `width_in` wide at the given
-    font size. Conservative (rounds up) so dynamic layouts leave enough room rather
-    than overlap. `display` widens the per-char estimate slightly for serif headers."""
+# --------------------------------------------------------------------------------- #
+# Shared text fitter — ONE width model behind every shrink/wrap decision in this file.
+#
+# Why per-glyph instead of one cw_factor: a single average can't serve both 9.5pt body
+# prose (narrow lowercase) and a 48pt metric of currency/digits/M (wide, bold). A factor
+# tuned on prose under-counts the metric and it wraps; a factor tuned on the metric
+# over-shrinks prose. The table below holds the actual Calibri advance of each glyph as
+# a fraction of the em, so the estimate tracks the real string. Calibri Light is slightly
+# narrower than Calibri, so reusing this table for Light over-estimates a touch — which is
+# the safe direction. Values are rounded UP and a safety margin trims the budget, because
+# over-shrinking by a point is invisible and overflow is fatal.
+# --------------------------------------------------------------------------------- #
+
+# Calibri advance widths as a fraction of the em (rounded up). Anything not listed falls
+# back to _CW_DEFAULT. Digits/currency are listed explicitly because metrics live on them.
+_CW = {
+    " ": 0.26, ".": 0.26, ",": 0.26, ";": 0.28, ":": 0.28, "'": 0.20, "!": 0.28,
+    "|": 0.24, "i": 0.24, "l": 0.24, "I": 0.28, "j": 0.24, "f": 0.32, "t": 0.34,
+    "r": 0.35, "(": 0.32, ")": 0.32, "[": 0.32, "]": 0.32, "/": 0.36, "\\": 0.36,
+    "-": 0.36, "\u2013": 0.52, "\u2014": 1.00,  # hyphen / en-dash / em-dash
+    "~": 0.53, "+": 0.59, "=": 0.59, "*": 0.42, "&": 0.66,
+    "0": 0.52, "1": 0.52, "2": 0.52, "3": 0.52, "4": 0.52, "5": 0.52,
+    "6": 0.52, "7": 0.52, "8": 0.52, "9": 0.52, "$": 0.52, "%": 0.86,
+    "m": 0.82, "w": 0.70, "M": 0.86, "W": 0.92,
+    "a": 0.50, "b": 0.53, "c": 0.45, "d": 0.53, "e": 0.50, "g": 0.53, "h": 0.53,
+    "k": 0.48, "n": 0.53, "o": 0.53, "p": 0.53, "q": 0.53, "s": 0.43, "u": 0.53,
+    "v": 0.47, "x": 0.47, "y": 0.47, "z": 0.44,
+    "A": 0.62, "B": 0.60, "C": 0.60, "D": 0.65, "E": 0.55, "F": 0.53, "G": 0.66,
+    "H": 0.66, "J": 0.45, "K": 0.60, "L": 0.51, "N": 0.66, "O": 0.70, "P": 0.58,
+    "Q": 0.70, "R": 0.62, "S": 0.55, "T": 0.56, "U": 0.65, "V": 0.60, "X": 0.60,
+    "Y": 0.58, "Z": 0.57,
+}
+_CW_DEFAULT = 0.56  # unlisted glyphs (accents, symbols): assume on the wide side
+
+
+def _text_w_in(text: str, font_size_pt: float, *, bold: bool = False,
+               display: bool = False) -> float:
+    """Rendered width of `text` in inches at `font_size_pt`, via per-glyph advances.
+    `bold` widens ~4% (Calibri Bold is fractionally wider). `display` widens ~6% to
+    stand in for the wider serif display fonts used in headers."""
+    if not text:
+        return 0.0
+    em = sum(_CW.get(ch, _CW_DEFAULT) for ch in str(text))
+    mult = 1.0
+    if bold:
+        mult *= 1.04
+    if display:
+        mult *= 1.06
+    return em * mult * (font_size_pt / 72.0)
+
+
+# Trim the usable width slightly before wrapping: keeps the estimate on the safe side of
+# the real PowerPoint render (and of Calibri Light's environment-dependent substitution).
+_FIT_SAFETY = 0.97
+
+
+def _est_lines(text: str, font_size_pt: float, width_in: float, *,
+               display: bool = False, bold: bool = False) -> int:
+    """Estimate how many lines `text` wraps to in a `width_in`-wide box at `font_size_pt`.
+
+    Greedy word-wrap over the per-glyph width model (`_text_w_in`), so the count respects
+    real glyph widths and word boundaries rather than a flat chars-per-line guess. This is
+    the single choke point every shrink/fit loop in this module relies on. Conservative by
+    construction (rounded-up advances + safety margin) so layouts leave room, not overlap."""
     if not text:
         return 1
-    cw_factor = 0.53 if display else 0.52  # avg char advance as a fraction of em
-    char_w_in = (font_size_pt / 72.0) * cw_factor
-    cpl = max(1, int(width_in / char_w_in))
-    return max(1, _math.ceil(len(str(text)) / cpl))
+    budget = max(0.1, width_in * _FIT_SAFETY)
+    lines = 1
+    cur = 0.0
+    space_w = _text_w_in(" ", font_size_pt, bold=bold, display=display)
+    for word in str(text).split():
+        ww = _text_w_in(word, font_size_pt, bold=bold, display=display)
+        if ww > budget:  # single word longer than the line: it spans multiple lines itself
+            if cur > 0:
+                lines += 1
+            lines += max(0, _math.ceil(ww / budget) - 1)
+            cur = ww % budget if ww % budget else 0.0
+            continue
+        add = ww if cur == 0 else cur + space_w + ww
+        if add <= budget:
+            cur = add
+        else:
+            lines += 1
+            cur = ww
+    return max(1, lines)
 
 
 def _line_h_in(font_size_pt: float) -> float:
@@ -898,7 +974,7 @@ def _fit_one_line_fs(text: str, width_in: float, start_fs: float, floor_fs: floa
     if not text:
         return start_fs
     fs = start_fs
-    while fs > floor_fs and _est_lines(text, fs, width_in) > 1:
+    while fs > floor_fs and _est_lines(text, fs, width_in, bold=bold) > 1:
         fs -= 0.5
     return fs
 
@@ -1024,7 +1100,7 @@ def render_strategic_context_cards(prs, content, brand):
     desc_fs = 14.67
     for c in cards:
         d = str(c.get("desc", ""))
-        while desc_fs > 8.5 and _est_lines(d, desc_fs, cw - 0.6) > 2:
+        while desc_fs > 8.5 and _est_lines(d, desc_fs, cw - 0.6, bold=True) > 2:
             desc_fs -= 0.5
 
     # One body font that fits the longest body in the available height. Use a REALISTIC line
@@ -1082,7 +1158,7 @@ def render_strategic_context_compare(prs, content, brand):
     # Headers can wrap to two lines (e.g. "What the current commercial model leaves on the
     # table"); start the items below the TALLER header so they never collide, and keep both
     # columns aligned by using the same items_top.
-    hdr_lines = max(1, min(2, max(_est_lines(c[4].get("header", ""), 16, hdr_w) for c in cols)))
+    hdr_lines = max(1, min(2, max(_est_lines(c[4].get("header", ""), 16, hdr_w, bold=True) for c in cols)))
     hdr_h = hdr_lines * _line_h_in(16)
     items_top = cy + 0.20 + hdr_h + 0.16
     avail = (cy + ch - 0.20) - items_top
